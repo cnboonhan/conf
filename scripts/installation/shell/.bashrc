@@ -2,7 +2,7 @@
 #
 # ~/.bashrc
 #
-# shellcheck disable=SC2155,SC1091
+# shellcheck disable=SC2155,SC1091,SC2207
 # shellcheck source=/home/cnboonhan/.bashrc
 
 export EDITOR=vim

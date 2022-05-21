@@ -1,0 +1,14 @@
+[user]
+	name = Charayaphan Nakorn Boon Han
+	email = charayaphan.nakorn.boon.han@gmail.com
+    
+[url "git@github.com:"]
+    insteadOf = https://github.com/    
+
+#[http]
+  #sslVerify = false
+  #proxy = 127.0.0.1:1090             # HTTP Proxy Fwd
+  #proxy = socks5h://127.0.0.1:1080   # SOCKS5 Proxy Fwd
+
+[pull]
+	rebase = false

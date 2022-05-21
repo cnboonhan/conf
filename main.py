@@ -16,6 +16,7 @@ _install_pip_dependencies(dir_path / 'requirements.txt')
 from prompts import prompt_task
 
 if __name__ == '__main__':
+    os.environ["PYTHONPATH"] = dir_path
     while True:
         task_failed = prompt_task()
         assert not task_failed, f"Something went wrong with selected task. returncode: {task_failed}"

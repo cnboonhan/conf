@@ -3,6 +3,7 @@ import sys
 import pathlib
 from typing import List
 import sys
+import os
 import code
 import readline                                              
 import rlcompleter
@@ -17,8 +18,7 @@ def _install_dependencies(deps: List[str]) -> None:
         case 'Ubuntu':
             ds = list(filter(_dependency_not_installed, deps))
             if ds:
-                p = subprocess.run('sudo apt -qqq install -y'.split() + ds)
-                assert p.returncode == 0, 'Something went wrong with dependency installation.'
+                subprocess.run('sudo apt -qqq install -y'.split() + ds).check_returncode()
         case _:
             raise Exception('Unrecognized OS. Terminating..')
 
@@ -31,7 +31,7 @@ def _in_virtualenv():
 
 def _install_pip_dependencies(path: pathlib.Path) -> None:
     assert _in_virtualenv(), 'Please source [path to repo]/.venv/bin/activate.'
-    assert subprocess.run(f"pip3 install -q -r {path}".split()).returncode == 0, 'Something went wrong with pip installation.'
+    subprocess.run(f"pip3 install -q -r {path}".split()).check_returncode()
 
 def _be_interactive(loc: dict):
     vars = globals()       
@@ -39,3 +39,11 @@ def _be_interactive(loc: dict):
     readline.set_completer(rlcompleter.Completer(vars).complete) 
     readline.parse_and_bind("tab: complete")                     
     code.InteractiveConsole(vars).interact()       
+
+def _create_conf_symlink(source_path: pathlib.Path, dest_path: pathlib.Path):
+    try:
+        os.remove(dest_path)
+    except Exception:
+        pass
+
+    os.symlink(source_path, dest_path)

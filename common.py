@@ -1,9 +1,8 @@
 import subprocess
 import lsb_release
 import sys
-import venv
+import pathlib
 from typing import List
-from pathlib import Path
 
 def _dependency_not_installed(dep: str) -> bool:
     resp = 'installed' in subprocess.run(f"apt list {dep} -qq".split(), capture_output=True).stdout.decode()
@@ -18,3 +17,14 @@ def _install_dependencies(deps: List[str]) -> None:
                 assert p.returncode == 0, 'Something went wrong with dependency installation.'
         case _:
             raise Exception('Unrecognized OS. Terminating..')
+
+def _get_base_prefix_compat():
+    """Get base/real prefix, or sys.prefix if there is none."""
+    return getattr(sys, "base_prefix", None) or getattr(sys, "real_prefix", None) or sys.prefix
+
+def _in_virtualenv():
+    return _get_base_prefix_compat() != sys.prefix
+
+def _install_pip_dependencies(path: pathlib.Path) -> None:
+    assert _in_virtualenv(), 'Please source [path to repo]/.venv/bin/activate.'
+    assert subprocess.run(f"pip3 install -q -r {path}".split()).returncode == 0, 'Something went wrong with pip installation.'

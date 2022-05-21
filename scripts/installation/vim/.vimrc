@@ -1,0 +1,54 @@
+set nocompatible
+colo elflord
+syntax on 
+filetype plugin on
+let mapleader=","
+
+set wildmenu
+set hidden
+set mouse=a
+set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab autoindent breakindent
+set incsearch ignorecase smartcase hlsearch 
+set backspace=indent,eol,start
+set clipboard=unnamedplus
+
+" Allow persistent clipboard
+autocmd VimLeave * call system('echo ' . shellescape(getreg('+')) . 
+  \ ' | xclip -selection clipboard')
+
+" Allow undo persistence across vim instances
+if !isdirectory("/tmp/.vim-undo-dir")
+  call mkdir("/tmp/.vim-undo-dir", "", 0700)
+endif
+set undodir=/tmp/.vim-undo-dir
+set undofile
+
+" Basic shortcuts
+nnoremap <leader>l :set relativenumber! nu! nonu<CR>
+nmap <leader><leader> :noh<CR>
+
+" Paste without setting paste/nopaste
+let &t_SI .= "\<Esc>[?2004h"
+let &t_EI .= "\<Esc>[?2004l"
+
+" More advanced stuff
+call plug#begin('~/.vim/plugged')
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'preservim/tagbar'
+call plug#end()
+
+" fzf.vim
+nnoremap <leader>p :Files<CR>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>B :call fzf#vim#files(getcwd(), {'options':'--query=' . expand('%:t:r')})<CR>
+
+" NERDTREE / TAGBAR 
+let NERDTreeShowHidden=1
+let g:NERDTreeDirArrowExpandable = '↠'
+let g:NERDTreeDirArrowCollapsible = '↡'
+let g:NERDTreeWinPos = 'right'
+nmap <leader>q :NERDTreeToggle<CR>
+nmap <leader>Q :TagbarToggle<CR>

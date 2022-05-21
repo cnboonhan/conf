@@ -1,14 +1,15 @@
 import subprocess
-import lsb_release
 import sys
 import pathlib
 from typing import List
+import sys
 
 def _dependency_not_installed(dep: str) -> bool:
     resp = 'installed' in subprocess.run(f"apt list {dep} -qq".split(), capture_output=True).stdout.decode()
     return not bool(resp)
 
 def _install_dependencies(deps: List[str]) -> None:
+    import lsb_release
     match lsb_release.get_distro_information()['ID']:
         case 'Ubuntu':
             ds = list(filter(_dependency_not_installed, deps))

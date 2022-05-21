@@ -6,11 +6,18 @@
 # There should be a folder configs with .conf files
 
 import pathlib
-from common import _in_virtualenv, _install_pip_dependencies
-assert _in_virtualenv(), "Please source [path to repo]/.venv/bin/activate."
-_install_pip_dependencies(pathlib.Path(__file__).parent.resolve() / "requirements.txt")
-
+import time
 import os
+from common import _in_virtualenv, _install_pip_dependencies
+assert _in_virtualenv(), 'Please source [path to repo]/.venv/bin/activate.'
+dir_path = pathlib.Path(__file__).parent.resolve()
+_install_pip_dependencies(dir_path / 'requirements.txt')
+
+from prompts import prompt_task
 
 if __name__ == '__main__':
-    pass
+    while True:
+        task_failed = prompt_task()
+        assert not task_failed, f"Something went wrong with selected task. returncode: {task_failed}"
+        print("Done.")
+        time.sleep(2)

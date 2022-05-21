@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from common import _in_virtualenv, _install_pip_dependencies
+from common import _in_virtualenv, _install_pip_dependencies, _install_dependencies
 import pathlib
 import os
 import subprocess
@@ -9,3 +9,4 @@ dir_path = pathlib.Path(__file__).parent.resolve()
 home_path = pathlib.Path(os.path.expanduser('~'))
 
 _install_pip_dependencies(dir_path / 'requirements.txt')
+_install_dependencies(['python3-tk'])

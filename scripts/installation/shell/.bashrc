@@ -62,6 +62,11 @@ rs(){
   nc -nvlk "$PORT"
 }
 
+websh(){
+  PORT=${1:-8000}
+  sudo ttyd -p "$PORT" login
+}
+
 export GPG_TTY=$(tty)
 export PS1='\[\e[1m\]\[\e[34m\]\u@\h [$(get_battery)]:\w \[\e[91m\]$(parse-git-branch) \[\e[0m\]$ '
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=1

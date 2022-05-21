@@ -3,6 +3,9 @@ import sys
 import pathlib
 from typing import List
 import sys
+import code
+import readline                                              
+import rlcompleter
 
 def _dependency_not_installed(dep: str) -> bool:
     resp = 'installed' in subprocess.run(f"apt list {dep} -qq".split(), capture_output=True).stdout.decode()
@@ -29,3 +32,10 @@ def _in_virtualenv():
 def _install_pip_dependencies(path: pathlib.Path) -> None:
     assert _in_virtualenv(), 'Please source [path to repo]/.venv/bin/activate.'
     assert subprocess.run(f"pip3 install -q -r {path}".split()).returncode == 0, 'Something went wrong with pip installation.'
+
+def _be_interactive(loc: dict):
+    vars = globals()       
+    vars.update(loc)
+    readline.set_completer(rlcompleter.Completer(vars).complete) 
+    readline.parse_and_bind("tab: complete")                     
+    code.InteractiveConsole(vars).interact()       

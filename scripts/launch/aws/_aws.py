@@ -31,14 +31,14 @@ class AWS:
 
     def __init__(self, dotenv_path: pathlib.Path):
         self.config, self.boto_config = setup_aws_config(dotenv_path)
-        self.s3 = boto3.resource(
+        self.s3 = boto3.client(
             's3',
             config=self.boto_config,
             aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
             aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
             aws_session_token=self.config["AWS_SESSION_TOKEN"])
 
-        self.ec2 = boto3.resource(
+        self.ec2 = boto3.client(
             'ec2',
             config=self.boto_config,
             aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
@@ -66,14 +66,14 @@ class AWS:
             aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
             aws_session_token=self.config["AWS_SESSION_TOKEN"])
 
-        self.cloudformation = boto3.resource(
+        self.cloudformation = boto3.client(
             'cloudformation',
             config=self.boto_config,
             aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
             aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
             aws_session_token=self.config["AWS_SESSION_TOKEN"])
 
-        self.cloudwatch = boto3.resource(
+        self.cloudwatch = boto3.client(
             'cloudwatch',
             config=self.boto_config,
             aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
@@ -87,7 +87,7 @@ class AWS:
             aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
             aws_session_token=self.config["AWS_SESSION_TOKEN"])
 
-        self.iam = boto3.resource(
+        self.iam = boto3.client(
             'iam',
             config=self.boto_config,
             aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
@@ -122,7 +122,7 @@ class AWS:
             aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
             aws_session_token=self.config["AWS_SESSION_TOKEN"])
 
-        self.sns = boto3.resource(
+        self.sns = boto3.client(
             'sns',
             config=self.boto_config,
             aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],

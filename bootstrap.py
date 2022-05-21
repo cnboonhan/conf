@@ -4,8 +4,10 @@
 
 import subprocess
 import lsb_release
+import venv
 import sys
 import os
+from pathlib import Path
 from typing import List
 
 def _install_dependencies(deps: List[str]) -> None:
@@ -16,9 +18,16 @@ def _install_dependencies(deps: List[str]) -> None:
             raise Exception("Unrecognized OS. Terminating..")
             sys.exit(1)
 
-def _get_core_repository(path: str = os.path.expanduser('~')):
+def _create_venv(path: str) -> None:
+    Path(path).mkdir(parents=True, exist_ok=True)
+    _install_dependencies(['python3-venv'])
+    venv.create(path, with_pip=True, system_site_packages=True)
+
+def _get_core_repository(path: str) -> None:
     subprocess.run(f"git clone https://github.com/cnboonhan/conf {path}/.conf".split())
 
 if __name__ == '__main__':
+    path = os.path.expanduser('~')
     _install_dependencies(['git'])
-    _get_core_repository()
+    _get_core_repository(path)
+    _create_venv(path)

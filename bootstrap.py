@@ -24,10 +24,10 @@ def _create_venv(path: str) -> None:
     venv.create(path, with_pip=True, system_site_packages=True)
 
 def _get_core_repository(path: str) -> None:
-    subprocess.run(f"git clone https://github.com/cnboonhan/conf {path}/.conf".split())
+    subprocess.run(f"git clone https://github.com/cnboonhan/conf {path}".split())
 
 if __name__ == '__main__':
     path = os.path.expanduser('~')
     _install_dependencies(['git'])
-    _get_core_repository(path)
-    _create_venv(path)
+    _get_core_repository(path / ".conf")
+    _create_venv(path / ".conf/.venv")

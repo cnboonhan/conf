@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from common import _in_virtualenv, _create_conf_symlink, _install_dependencies, _create_encrypt_folder
+from common import _in_virtualenv, _create_conf_symlink, _install_dependencies, _create_encrypt_folder, _decrypt_folders
 import pathlib
 import os
 
@@ -11,10 +11,8 @@ _install_dependencies(['netcat', 'gocryptfs'])
 
 if not os.path.isdir(home_path / '.encrypt'):
     print("Creating encrypted directory as it does not exist")
-    _create_encrypt_folder(home_path / '.encrypt')
-    
-subprocess.run(
-    f"gocryptfs {home_path / '.encrypt'} {home_path / '.decrypt'}".split()).check_returncode()
+    _create_encrypt_folder(home_path / '.encrypt')  
+_decrypt_folders(home_path / '.encrypt', home_path / '.decrypt')
 
 os.makedirs(home_path / '.ssh', exist_ok=True)
 _create_conf_symlink(dir_path / '.bashrc', home_path / '.bashrc')

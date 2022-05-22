@@ -17,6 +17,7 @@ os.makedirs(home_path / '.decrypt', exist_ok=True)
 _decrypt_folders(home_path / '.encrypt', home_path / '.decrypt')
 
 os.makedirs(home_path / '.ssh', exist_ok=True)
+os.makedirs(home_path / '.decrypt/.ssh', exist_ok=True)  
 _create_conf_symlink(dir_path / '.bashrc', home_path / '.bashrc')
 _create_conf_symlink(dir_path / '.gitconfig', home_path / '.gitconfig')
 _create_conf_symlink(dir_path / 'ssh_config', home_path / '.ssh/config')

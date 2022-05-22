@@ -1,7 +1,10 @@
 import pathlib
 from botocore.config import Config
 from dotenv import dotenv_values, load_dotenv
+from common import _run_command
 import boto3
+import os
+from prompts import prompt_choice
 
 
 def setup_aws_config(dotenv_path: pathlib.Path):
@@ -30,120 +33,53 @@ class AWS:
 
     def __init__(self, dotenv_path: pathlib.Path):
         self.config, self.boto_config = setup_aws_config(dotenv_path)
-        self.s3 = boto3.client(
-            's3',
-            config=self.boto_config,
-            aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
-            aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
-            aws_session_token=self.config["AWS_SESSION_TOKEN"])
+        kwargs = {'config': self.boto_config,
+                  'aws_access_key_id': self.config["AWS_ACCESS_KEY_ID"],
+                  'aws_secret_access_key': self.config["AWS_SECRET_ACCESS_KEY"],
+                  'aws_session_token': self.config["AWS_SESSION_TOKEN"]}
 
-        self.ec2 = boto3.client(
-            'ec2',
-            config=self.boto_config,
-            aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
-            aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
-            aws_session_token=self.config["AWS_SESSION_TOKEN"])
+        self.s3 = boto3.client('s3', **kwargs)
+        self.ec2 = boto3.client('ec2', **kwargs)
+        self.acm = boto3.client('acm', **kwargs)
+        self.apigateway = boto3.client('apigateway', **kwargs)
+        self.autoscaling = boto3.client('autoscaling', **kwargs)
+        self.cloudformation = boto3.client('cloudformation', **kwargs)
+        self.cloudwatch = boto3.client('cloudwatch', **kwargs)
+        self.ebs = boto3.client('ebs', **kwargs)
+        self.iam = boto3.client('iam', **kwargs)
+        self.imagebuilder = boto3.client('imagebuilder', **kwargs)
+        self.kms = boto3.client('kms', **kwargs)
+        self.rds = boto3.client('rds', **kwargs)
+        self.route53 = boto3.client('route53', **kwargs)
+        self.sns = boto3.client('sns', **kwargs)
+        self.ssm = boto3.client('ssm', **kwargs)
 
-        self.acm = boto3.client(
-            'acm',
-            config=self.boto_config,
-            aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
-            aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
-            aws_session_token=self.config["AWS_SESSION_TOKEN"])
+        os.environ['AWS_ACCESS_KEY_ID'] = kwargs['aws_access_key_id']
+        os.environ['AWS_SECRET_ACCESS_KEY'] = kwargs['aws_secret_access_key']
+        os.environ['AWS_SESSION_TOKEN'] = kwargs['aws_session_token']
+        os.environ['AWS_DEFAULT_REGION'] = self.config["AWS_DEFAULT_REGION"]
 
-        self.apigateway = boto3.client(
-            'apigateway',
-            config=self.boto_config,
-            aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
-            aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
-            aws_session_token=self.config["AWS_SESSION_TOKEN"])
+    def ssm_connect(self, i: str = None) -> None:
+        if not i:
+            response = self.ec2.describe_instances(
+                Filters=[
+                    {
+                        'Name': 'instance-state-name',
+                        'Values': ['running'],
+                    },
+                ],
+            )
 
-        self.autoscaling = boto3.client(
-            'autoscaling',
-            config=self.boto_config,
-            aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
-            aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
-            aws_session_token=self.config["AWS_SESSION_TOKEN"])
+            data = {}
+            for r in response['Reservations']:
+                for i in r['Instances']:
+                    id = i['InstanceId']
+                    tags = i['Tags']
+                    info = f"InstanceID: {id}\nTags: {tags}"
+                    data[id] = info
 
-        self.cloudformation = boto3.client(
-            'cloudformation',
-            config=self.boto_config,
-            aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
-            aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
-            aws_session_token=self.config["AWS_SESSION_TOKEN"])
+            i = prompt_choice([i for i in data.items()],
+                              "EC2", "Select EC2 to connect to.")
 
-        self.cloudwatch = boto3.client(
-            'cloudwatch',
-            config=self.boto_config,
-            aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
-            aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
-            aws_session_token=self.config["AWS_SESSION_TOKEN"])
-
-        self.ebs = boto3.client(
-            'ebs',
-            config=self.boto_config,
-            aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
-            aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
-            aws_session_token=self.config["AWS_SESSION_TOKEN"])
-
-        self.iam = boto3.client(
-            'iam',
-            config=self.boto_config,
-            aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
-            aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
-            aws_session_token=self.config["AWS_SESSION_TOKEN"])
-
-        self.imagebuilder = boto3.client(
-            'imagebuilder',
-            config=self.boto_config,
-            aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
-            aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
-            aws_session_token=self.config["AWS_SESSION_TOKEN"])
-
-        self.kms = boto3.client(
-            'kms',
-            config=self.boto_config,
-            aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
-            aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
-            aws_session_token=self.config["AWS_SESSION_TOKEN"])
-
-        self.rds = boto3.client(
-            'rds',
-            config=self.boto_config,
-            aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
-            aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
-            aws_session_token=self.config["AWS_SESSION_TOKEN"])
-
-        self.route53 = boto3.client(
-            'route53',
-            config=self.boto_config,
-            aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
-            aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
-            aws_session_token=self.config["AWS_SESSION_TOKEN"])
-
-        self.sns = boto3.client(
-            'sns',
-            config=self.boto_config,
-            aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
-            aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
-            aws_session_token=self.config["AWS_SESSION_TOKEN"])
-
-        self.ssm = boto3.client(
-            'ssm',
-            config=self.boto_config,
-            aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
-            aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
-            aws_session_token=self.config["AWS_SESSION_TOKEN"])
-
-    def ssm_connect(self, s: dict) -> None:
-        REQUIRED_KEYS = ['SessionId', 'StreamUrl', 'ResponseMetadata', 'TokenValue']
-        assert all(key in s.keys() for key in REQUIRED_KEYS)
-        stream_url = s['StreamUrl']
-
-        data = {
-            "MessageSchemaVersion": "1.0",
-            "RequestId": s['ResponseMetadata']['RequestId'],
-            "TokenValue": s['TokenValue']
-        }
-
-        return stream_url, data
+        if i:
+            _run_command(f"aws ssm start-session --target {i}")

@@ -36,3 +36,11 @@ def prompt_task() -> None:
         _run_command(f"python3 {run_script}")
     else:
         sys.exit(0)
+
+
+def prompt_choice(item_list, title: str, text: str):
+    return radiolist_dialog(
+        values=item_list,
+        title=title,
+        text=text,
+    ).run()

@@ -77,4 +77,3 @@ export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 
 bind -x '"\eo":"mkdir -p ~/.decrypt; gocryptfs ~/.encrypt ~/.decrypt"'
 bind -x '"\el":"fusermount -u ~/.decrypt"'
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

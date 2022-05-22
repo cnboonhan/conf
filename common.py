@@ -6,9 +6,11 @@ import os
 import code
 import readline
 import rlcompleter
+import signal
 
 
 def _run_command(cmd: str, capture_output: bool = False, stdin=None, stdout=None, stderr=None, check_returncode: bool = True) -> str:
+    signal.signal(signal.SIGINT, lambda x, y: x)
     resp = subprocess.run(
         cmd.split(), capture_output=capture_output, stdout=stdout, stderr=stderr)
     if check_returncode:

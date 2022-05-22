@@ -7,7 +7,7 @@ assert _in_virtualenv(), "Please source [path to repo]/.venv/bin/activate."
 dir_path = pathlib.Path(__file__).parent.resolve()
 home_path = pathlib.Path(os.path.expanduser('~'))
 
-_install_dependencies(['netcat', 'gocryptfs'])
+_install_dependencies(['netcat', 'gocryptfs', 'xclip'])
 
 if not os.path.isdir(home_path / '.encrypt'):
     print("Creating encrypted directory as it does not exist")

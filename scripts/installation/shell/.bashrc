@@ -64,7 +64,7 @@ rs(){
 
 websh(){
   PORT=${1:-8000}
-  sudo nohup ttyd -p "$PORT" login >/dev/null 2>&1 &
+  sudo ttyd -p "$PORT" login 
 }
 
 export GPG_TTY=$(tty)
@@ -75,5 +75,6 @@ export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
     export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")" &&
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-bind -x '"\eL":"mkdir -p ~/.decrypt; gocryptfs ~/.encrypt ~/.decrypt"'
+bind -x '"\eo":"mkdir -p ~/.decrypt; gocryptfs ~/.encrypt ~/.decrypt"'
 bind -x '"\el":"fusermount -u ~/.decrypt"'
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

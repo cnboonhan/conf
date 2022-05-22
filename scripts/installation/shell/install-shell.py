@@ -11,12 +11,12 @@ _install_dependencies(['netcat', 'gocryptfs'])
 
 if not os.path.isdir(home_path / '.encrypt'):
     print("Creating encrypted directory as it does not exist")
-    _create_encrypt_folder(home_path / '.encrypt')  
+    _create_encrypt_folder(home_path / '.encrypt')
 
-os.makedirs(home_path / '.decrypt', exist_ok=True)  
+os.makedirs(home_path / '.decrypt', exist_ok=True)
 _decrypt_folders(home_path / '.encrypt', home_path / '.decrypt')
 
 os.makedirs(home_path / '.ssh', exist_ok=True)
-os.makedirs(home_path / '.decrypt/.ssh', exist_ok=True)  
+os.makedirs(home_path / '.decrypt/.ssh', exist_ok=True)
 _create_conf_symlink(dir_path / '.bashrc', home_path / '.bashrc')
 _create_conf_symlink(dir_path / 'ssh_config', home_path / '.ssh/config')

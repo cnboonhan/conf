@@ -2,7 +2,6 @@ import pathlib
 from botocore.config import Config
 from dotenv import dotenv_values, load_dotenv
 import boto3
-import json
 
 
 def setup_aws_config(dotenv_path: pathlib.Path):

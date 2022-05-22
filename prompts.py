@@ -2,7 +2,7 @@ from __future__ import print_function, unicode_literals
 import pathlib
 import os
 import sys
-import subprocess
+from common import _run_command
 from prompt_toolkit.shortcuts import radiolist_dialog
 
 script_path = pathlib.Path(__file__).parent.resolve() / "scripts"
@@ -33,6 +33,6 @@ def prompt_task() -> None:
     ).run()
 
     if run_script:
-        subprocess.run(f"python3 {run_script}".split()).check_returncode()
+        _run_command(f"python3 {run_script}")
     else:
         sys.exit(0)

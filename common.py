@@ -8,9 +8,20 @@ import readline
 import rlcompleter
 
 
+def _run_command(cmd: str, capture_output: bool = False, stdin=None, stdout=None, stderr=None, check_returncode: bool = True) -> str:
+    resp = subprocess.run(
+        cmd.split(), capture_output=capture_output, stdout=stdout, stderr=stderr)
+    if check_returncode:
+        resp.check_returncode()
+    if capture_output:
+        return resp.stdout.decode()
+    else:
+        return ''
+
+
 def _dependency_not_installed(dep: str) -> bool:
-    resp = 'installed' in subprocess.run(
-        f"apt list {dep} -qq".split(), capture_output=True).stdout.decode()
+    resp = 'installed' in _run_command(
+        f"apt list {dep} -qq", capture_output=True)
     return not bool(resp)
 
 
@@ -20,8 +31,7 @@ def _install_dependencies(deps: List[str]) -> None:
         case 'Ubuntu':
             ds = list(filter(_dependency_not_installed, deps))
             if ds:
-                subprocess.run(
-                    'sudo apt -qqq install -y'.split() + ds).check_returncode()
+                _run_command(f"sudo apt -qqq install -y {' '.join(ds)}")
         case _:
             raise Exception('Unrecognized OS. Terminating..')
 
@@ -37,7 +47,7 @@ def _in_virtualenv():
 
 def _install_pip_dependencies(path: pathlib.Path) -> None:
     assert _in_virtualenv(), 'Please source [path to repo]/.venv/bin/activate.'
-    subprocess.run(f"pip3 install -q -r {path}".split()).check_returncode()
+    _run_command(f"pip3 install -q -r {path}")
 
 
 def _be_interactive(loc: dict):
@@ -57,11 +67,11 @@ def _create_conf_symlink(source_path: pathlib.Path, dest_path: pathlib.Path):
 
     os.symlink(source_path, dest_path)
 
+
 def _create_encrypt_folder(encrypt_folder: pathlib.Path):
     os.makedirs(encrypt_folder, exist_ok=True)
-    subprocess.run(
-        f"gocryptfs --init {encrypt_folder}".split()).check_returncode()
-    
+    _run_command(f"gocryptfs --init {encrypt_folder}")
+
 
 def _delete_last_lines(file_path: pathlib.Path, s: int = -1):
     fd = open(file_path, "r")
@@ -75,6 +85,8 @@ def _delete_last_lines(file_path: pathlib.Path, s: int = -1):
         fd.write(s[i])
     fd.close()
 
+
 def _decrypt_folders(encrypt_folder: pathlib.Path, decrypt_folder: pathlib.Path):
-    subprocess.run(f"fusermount -u {decrypt_folder}".split(), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.run(f"gocryptfs {encrypt_folder} {decrypt_folder}".split()).check_returncode()
+    _run_command(f"fusermount -u {decrypt_folder}",
+                 capture_output=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check_returncode=False)
+    _run_command(f"gocryptfs {encrypt_folder} {decrypt_folder}", capture_output=False)

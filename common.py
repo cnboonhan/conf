@@ -59,7 +59,6 @@ def _create_conf_symlink(source_path: pathlib.Path, dest_path: pathlib.Path):
 
 def _create_encrypt_folder(encrypt_folder: pathlib.Path):
     os.makedirs(encrypt_folder, exist_ok=True)
-    os.makedirs(home_path / '.decrypt', exist_ok=True)
     subprocess.run(
         f"gocryptfs --init {encrypt_folder}".split()).check_returncode()
     

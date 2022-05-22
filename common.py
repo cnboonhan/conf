@@ -62,8 +62,6 @@ def _create_encrypt_folder(encrypt_folder: pathlib.Path):
     os.makedirs(home_path / '.decrypt', exist_ok=True)
     subprocess.run(
         f"gocryptfs --init {encrypt_folder}".split()).check_returncode()
-    subprocess.run(
-        f"gocryptfs {encrypt_folder} {home_path / '.decrypt'}".split()).check_returncode()
     
 
 def _delete_last_lines(file_path: pathlib.Path, s: int = -1):

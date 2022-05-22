@@ -2,6 +2,7 @@ import pathlib
 from botocore.config import Config
 from dotenv import dotenv_values, load_dotenv
 import boto3
+import json
 
 
 def setup_aws_config(dotenv_path: pathlib.Path):
@@ -134,3 +135,16 @@ class AWS:
             aws_access_key_id=self.config["AWS_ACCESS_KEY_ID"],
             aws_secret_access_key=self.config["AWS_SECRET_ACCESS_KEY"],
             aws_session_token=self.config["AWS_SESSION_TOKEN"])
+
+    def ssm_connect(self, s: dict) -> None:
+        REQUIRED_KEYS = ['SessionId', 'StreamUrl', 'ResponseMetadata', 'TokenValue']
+        assert all(key in s.keys() for key in REQUIRED_KEYS)
+        stream_url = s['StreamUrl']
+
+        data = {
+            "MessageSchemaVersion": "1.0",
+            "RequestId": s['ResponseMetadata']['RequestId'],
+            "TokenValue": s['TokenValue']
+        }
+
+        return stream_url, data

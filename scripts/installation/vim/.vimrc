@@ -38,10 +38,18 @@ Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/tagbar'
+Plug 'w0rp/ale'
 call plug#end()
 
+" ALE
+let g:ale_linters = {'python': ['flake8'], 'sh': ['shellcheck']}
+let g:ale_linters = {'python': ['autopep8'], 'sh': ['shellcheck']}
+nmap <leader>z :ALEToggle<CR>
+nmap <leader>Z :ALEFix<CR>
+
 " fzf.vim
-nnoremap <leader>p :Files<CR>
+nnoremap <leader>F :Rg!<space>
+nnoremap <leader>f :Files<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>B :call fzf#vim#files(getcwd(), {'options':'--query=' . expand('%:t:r')})<CR>
 

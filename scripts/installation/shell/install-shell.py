@@ -13,7 +13,7 @@ if not os.path.isdir(home_path / '.encrypt'):
     print("Creating encrypted directory as it does not exist")
     _create_encrypt_folder(home_path / '.encrypt')
 
-os.mkdir(home_path / '.ssh')
+os.makedirs(home_path / '.ssh', exist_ok=True)
 _create_conf_symlink(dir_path / '.bashrc', home_path / '.bashrc')
 _create_conf_symlink(dir_path / '.gitconfig', home_path / '.gitconfig')
 _create_conf_symlink(dir_path / 'ssh_config', home_path / '.ssh/config')

@@ -8,7 +8,7 @@ assert _in_virtualenv(), "Please source [path to repo]/.venv/bin/activate."
 dir_path = pathlib.Path(__file__).parent.resolve()
 home_path = pathlib.Path(os.path.expanduser('~'))
 
-_install_dependencies(['vim-gtk3', 'curl', 'exuberant-ctags', 'ripgrep'])
+_install_dependencies(['vim-gtk3', 'curl', 'exuberant-ctags', 'ripgrep', 'shellcheck', 'flake8', 'python3-autopep8'])
 subprocess.run(f"curl -fLo {home_path}/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim".split(
 )).check_returncode()

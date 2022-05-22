@@ -2,7 +2,7 @@
 
 # Main start of execution path for scripts
 # Make sure this file is in the repository root, and requirements.txt as well
-# There should be a folder scripts with more python script files, and 
+# There should be a folder scripts with more python script files, and
 # There should be a folder configs with .conf files
 
 import pathlib

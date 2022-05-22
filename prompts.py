@@ -7,6 +7,7 @@ from prompt_toolkit.shortcuts import radiolist_dialog
 
 script_path = pathlib.Path(__file__).parent.resolve() / "scripts"
 
+
 def _prompt_category() -> str:
     script_categories = script_path.glob('[!_]*')
     category = radiolist_dialog(
@@ -19,6 +20,7 @@ def _prompt_category() -> str:
         sys.exit(0)
 
     return category
+
 
 def prompt_task() -> None:
     category = _prompt_category()

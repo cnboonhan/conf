@@ -2,15 +2,17 @@ import subprocess
 import sys
 import pathlib
 from typing import List
-import sys
 import os
 import code
-import readline                                              
+import readline
 import rlcompleter
 
+
 def _dependency_not_installed(dep: str) -> bool:
-    resp = 'installed' in subprocess.run(f"apt list {dep} -qq".split(), capture_output=True).stdout.decode()
+    resp = 'installed' in subprocess.run(
+        f"apt list {dep} -qq".split(), capture_output=True).stdout.decode()
     return not bool(resp)
+
 
 def _install_dependencies(deps: List[str]) -> None:
     import lsb_release
@@ -18,27 +20,33 @@ def _install_dependencies(deps: List[str]) -> None:
         case 'Ubuntu':
             ds = list(filter(_dependency_not_installed, deps))
             if ds:
-                subprocess.run('sudo apt -qqq install -y'.split() + ds).check_returncode()
+                subprocess.run(
+                    'sudo apt -qqq install -y'.split() + ds).check_returncode()
         case _:
             raise Exception('Unrecognized OS. Terminating..')
+
 
 def _get_base_prefix_compat():
     """Get base/real prefix, or sys.prefix if there is none."""
     return getattr(sys, "base_prefix", None) or getattr(sys, "real_prefix", None) or sys.prefix
 
+
 def _in_virtualenv():
     return _get_base_prefix_compat() != sys.prefix
+
 
 def _install_pip_dependencies(path: pathlib.Path) -> None:
     assert _in_virtualenv(), 'Please source [path to repo]/.venv/bin/activate.'
     subprocess.run(f"pip3 install -q -r {path}".split()).check_returncode()
 
+
 def _be_interactive(loc: dict):
-    vars = globals()       
+    vars = globals()
     vars.update(loc)
-    readline.set_completer(rlcompleter.Completer(vars).complete) 
-    readline.parse_and_bind("tab: complete")                     
-    code.InteractiveConsole(vars).interact()       
+    readline.set_completer(rlcompleter.Completer(vars).complete)
+    readline.parse_and_bind("tab: complete")
+    code.InteractiveConsole(vars).interact()
+
 
 def _create_conf_symlink(source_path: pathlib.Path, dest_path: pathlib.Path):
 
@@ -49,5 +57,7 @@ def _create_conf_symlink(source_path: pathlib.Path, dest_path: pathlib.Path):
 
     os.symlink(source_path, dest_path)
 
+
 def _create_encrypt_folder(encrypt_folder: pathlib.Path):
-    subprocess.run(f"gocryptfs --init {encrypt_folder}".split()).check_returncode()
+    subprocess.run(
+        f"gocryptfs --init {encrypt_folder}".split()).check_returncode()

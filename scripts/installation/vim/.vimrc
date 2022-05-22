@@ -43,7 +43,8 @@ call plug#end()
 
 " ALE
 let g:ale_linters = {'python': ['flake8'], 'sh': ['shellcheck']}
-let g:ale_linters = {'python': ['autopep8'], 'sh': ['shellcheck']}
+let g:ale_fixers = {'python': ['autopep8'], 'sh': ['shellcheck']}
+let g:ale_python_flake8_options = '--ignore=A003,D400,D205,D107,D102,E111,E114,E226,F841,E402,E501'
 nmap <leader>z :ALEToggle<CR>
 nmap <leader>Z :ALEFix<CR>
 

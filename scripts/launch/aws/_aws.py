@@ -1,7 +1,6 @@
 import pathlib
 from botocore.config import Config
 from dotenv import dotenv_values, load_dotenv
-from botocore.config import Config
 import boto3
 
 

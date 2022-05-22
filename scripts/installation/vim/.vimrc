@@ -28,8 +28,7 @@ nnoremap <leader>l :set relativenumber! nu! nonu<CR>
 nmap <leader><leader> :noh<CR>
 
 " Paste without setting paste/nopaste
-let &t_SI .= "\<Esc>[?2004h"
-let &t_EI .= "\<Esc>[?2004l"
+set pastetoggle=<leader>v
 
 " More advanced stuff
 call plug#begin('~/.vim/plugged')

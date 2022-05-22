@@ -75,3 +75,6 @@ def _delete_last_lines(file_path: pathlib.Path, s: int = -1):
     for i in range(len(s)):
         fd.write(s[i])
     fd.close()
+
+def _decrypt_folders(encrypt_folder: pathlib.Path, decrypt_folder: pathlib.Path):
+    subprocess.run(f"gocryptfs {encrypt_folder} {decrypt_folder}".split())

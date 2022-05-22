@@ -61,3 +61,16 @@ def _create_conf_symlink(source_path: pathlib.Path, dest_path: pathlib.Path):
 def _create_encrypt_folder(encrypt_folder: pathlib.Path):
     subprocess.run(
         f"gocryptfs --init {encrypt_folder}".split()).check_returncode()
+
+
+def _delete_last_lines(file_path: pathlib.Path, s: int = -1):
+    fd = open(file_path, "r")
+    d = fd.read()
+    fd.close()
+    m = d.split("\n")
+    s = "\n".join(m[:s])
+    print(s)
+    fd = open(file_path, "w+")
+    for i in range(len(s)):
+        fd.write(s[i])
+    fd.close()

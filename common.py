@@ -41,9 +41,13 @@ def _be_interactive(loc: dict):
     code.InteractiveConsole(vars).interact()       
 
 def _create_conf_symlink(source_path: pathlib.Path, dest_path: pathlib.Path):
+
     try:
         os.remove(dest_path)
     except Exception:
         pass
 
     os.symlink(source_path, dest_path)
+
+def _create_encrypt_folder(encrypt_folder: pathlib.Path):
+    subprocess.run(f"gocryptfs --init {encrypt_folder}".split()).check_returncode()

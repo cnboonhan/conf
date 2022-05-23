@@ -22,6 +22,7 @@ if !isdirectory("/tmp/.vim-undo-dir")
 endif
 set undodir=/tmp/.vim-undo-dir
 set undofile
+nnoremap <C-e> <C-w>
 
 " Basic shortcuts
 nnoremap <leader>l :set relativenumber! nu! nonu<CR>

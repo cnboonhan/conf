@@ -74,7 +74,10 @@ class AWS:
             for r in response['Reservations']:
                 for i in r['Instances']:
                     id = i['InstanceId']
-                    tags = i['Tags']
+                    try:
+                        tags = i['Tags']
+                    except KeyError:
+                        tags = []
                     info = f"InstanceID: {id}\nTags: {tags}"
                     data[id] = info
 

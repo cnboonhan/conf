@@ -8,12 +8,12 @@ import os
 import pathlib
 
 
-def _create_venv(path: str) -> None:
+def _create_venv(path: pathlib.Path) -> None:
     pathlib.Path(path).mkdir(parents=True, exist_ok=True)
     venv.create(path, with_pip=True, system_site_packages=True)
 
 
-def _get_core_repository(path: str) -> None:
+def _get_core_repository(path: pathlib.Path) -> None:
     subprocess.run(
         f"git clone https://github.com/cnboonhan/conf {path}".split())
 

@@ -9,10 +9,10 @@ import rlcompleter
 import signal
 
 
-def _run_command(cmd: str, capture_output: bool = False, stdin=None, stdout=None, stderr=None, check_returncode: bool = True) -> str:
-    signal.signal(signal.SIGINT, lambda x, y: x)
+def _run_command(cmd: str, capture_output: bool = False, stdin=None, stdout=None, stderr=None, check_returncode: bool = True, shell=False) -> str:
+    signal.signal(signal.SIGINT, lambda x, _: x)
     resp = subprocess.run(
-        cmd.split(), capture_output=capture_output, stdout=stdout, stderr=stderr)
+        cmd.split(), capture_output=capture_output, stdin=stdin, stdout=stdout, stderr=stderr, shell=shell)
     if check_returncode:
         resp.check_returncode()
     if capture_output:
@@ -73,19 +73,6 @@ def _create_conf_symlink(source_path: pathlib.Path, dest_path: pathlib.Path):
 def _create_encrypt_folder(encrypt_folder: pathlib.Path):
     os.makedirs(encrypt_folder, exist_ok=True)
     _run_command(f"gocryptfs --init {encrypt_folder}")
-
-
-def _delete_last_lines(file_path: pathlib.Path, s: int = -1):
-    fd = open(file_path, "r")
-    d = fd.read()
-    fd.close()
-    m = d.split("\n")
-    s = "\n".join(m[:s])
-    print(s)
-    fd = open(file_path, "w+")
-    for i in range(len(s)):
-        fd.write(s[i])
-    fd.close()
 
 
 def _decrypt_folders(encrypt_folder: pathlib.Path, decrypt_folder: pathlib.Path):

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from common import _in_virtualenv, _create_conf_symlink, _install_dependencies, _create_encrypt_folder, _decrypt_folders
+from common import _in_virtualenv, _create_conf_symlink, _install_dependencies, _create_encrypt_folder, _decrypt_folders, _run_command
 import pathlib
 import os
 
@@ -8,6 +8,8 @@ dir_path = pathlib.Path(__file__).parent.resolve()
 home_path = pathlib.Path(os.path.expanduser('~'))
 
 _install_dependencies(['netcat', 'gocryptfs', 'xclip'])
+_run_command("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/gc.deb") 
+_run_command("sudo dpkg -i /tmp/gc.deb")
 
 if not os.path.isdir(home_path / '.encrypt'):
     print("Creating encrypted directory as it does not exist")

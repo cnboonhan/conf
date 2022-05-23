@@ -5,8 +5,12 @@
 # shellcheck disable=SC2155,SC1091,SC2207
 # shellcheck source=/home/cnboonhan/.bashrc
 
-export EDITOR=vim
 set -o vi
+
+export EDITOR=vim
+export GPG_TTY=$(tty)
+export PS1='\[\e[1m\]\[\e[34m\]\u@\h [$(get_battery)]:\w \[\e[91m\]$(parse-git-branch) \[\e[0m\]$ '
+export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -16,21 +20,21 @@ alias ls='ls --color=auto'
 { [ -f /usr/share/bash-completion/bash_completion ] && . "/usr/share/bash-completion/bash_completion"; } ||
     echo "No bash completion available"
 
-## Helper function for PS1 modification to see git branch in terminal prompt
+get_battery() {
+    /usr/bin/cat "$(find /sys/class/power_supply/ | grep BAT | head -1)/capacity" 2>/dev/null || echo 100
+}
+
 parse-git-branch() {
     git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
-get_battery() {
-    /usr/bin/cat "$(find /sys/class/power_supply/ | grep BAT | head -1)/capacity" 2>/dev/null || echo 100
-}
 
 git-pull-all() {
     find . -type d -name .git -exec sh -c 'i="$1"; cd $i/../ && pwd && git stash > /dev/null && git pull' _ {} \;
 }
 
 git-fetch-all() {
-    git branch -r | grep -v '\->' | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | while read remote; do git branch --track "${remote#origin/}" "$remote"; done
+    git branch -r | grep -v '\->' | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | while read -r remote; do git branch --track "${remote#origin/}" "$remote"; done
     git fetch --all
     git pull --all
 }
@@ -73,13 +77,22 @@ websh(){
   sudo ttyd -p "$PORT" login 
 }
 
-export GPG_TTY=$(tty)
-export PS1='\[\e[1m\]\[\e[34m\]\u@\h [$(get_battery)]:\w \[\e[91m\]$(parse-git-branch) \[\e[0m\]$ '
-export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
-
 [ -d "$HOME/.nvm" ] && 
     export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")" &&
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-bind -x '"\eo":"mkdir -p ~/.decrypt; gocryptfs ~/.encrypt ~/.decrypt"'
-bind -x '"\el":"fusermount -u ~/.decrypt"'
+decrypt() {
+    mkdir -p "$HOME/.decrypt"
+    gocryptfs "$HOME/.encrypt" "$HOME/.decrypt"
+}
+
+encrypt() {
+    fusermount -u "$HOME/.decrypt"
+}
+
+m() {
+    source "$HOME/.conf/.venv/bin/activate"
+    cd "$HOME/.conf" && python -m main
+    deactivate
+}
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

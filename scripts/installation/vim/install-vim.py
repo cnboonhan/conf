@@ -15,4 +15,5 @@ _run_command(f"curl -fLo {home_path}/.vim/autoload/plug.vim --create-dirs {vim_p
 
 _create_conf_symlink(dir_path / '.vimrc', home_path / '.vimrc')
 
+_run_command('vim -c PlugClean! -c qall!')
 _run_command('vim -c PlugInstall -c qall!')

@@ -36,12 +36,15 @@ Plug 'junegunn/fzf.vim'
 Plug 'preservim/tagbar'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-commentary'
-Plug 'tomasr/molokai'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'airblade/vim-gitgutter'
+Plug 'arcticicestudio/nord-vim'
 call plug#end()
 
-colorscheme molokai
+try 
+  colorscheme nord
+  catch
+endtry
 
 " fzf.vim
 nnoremap <leader>F :Rg!<space>
@@ -150,8 +153,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+xmap <space>f  <Plug>(coc-format-selected)
+nmap <space>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!

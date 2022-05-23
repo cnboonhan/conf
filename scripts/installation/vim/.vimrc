@@ -6,7 +6,7 @@ let mapleader=","
 set wildmenu
 set hidden
 set mouse=a
-set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab autoindent breakindent
+set tabstop=2 softtabstop=2 shiftwidth=2 expandtab smarttab autoindent breakindent
 set incsearch ignorecase smartcase hlsearch 
 set backspace=indent,eol,start
 set clipboard=unnamedplus

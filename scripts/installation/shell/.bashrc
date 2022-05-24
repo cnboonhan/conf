@@ -99,7 +99,7 @@ m() {
 aws_env() {
   [ -z "${AWS_ACCESS_KEY_ID}" ] && ( echo "AWS_ACCESS_KEY_ID needed"  && exit 1 )
   [ -z "${AWS_SECRET_ACCESS_KEY}" ] && ( echo "AWS_SECRET_ACCESS_KEY needed" && exit 1 )
-  OUT_FILE="/tmp/.aws_env"
+  OUT_FILE="/tmp/aws_env"
 
   AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-ap-southeast-1}
   AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN:-''}

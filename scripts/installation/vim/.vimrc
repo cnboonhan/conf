@@ -51,6 +51,7 @@ nnoremap <leader>F :Rg!<space>
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>B :call fzf#vim#files(getcwd(), {'options':'--query=' . expand('%:t:r')})<CR>
 nnoremap <leader>b :Buffers<CR>
+let $FZF_DEFAULT_COMMAND = 'rg --hidden -l ""'
 
 " NERDTREE / TAGBAR 
 let NERDTreeShowHidden=1

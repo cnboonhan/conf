@@ -53,6 +53,7 @@ class AWS:
         self.route53 = boto3.client('route53', **kwargs)
         self.sns = boto3.client('sns', **kwargs)
         self.ssm = boto3.client('ssm', **kwargs)
+        self.sts = boto3.client('sts', **kwargs)
 
         os.environ['AWS_ACCESS_KEY_ID'] = kwargs['aws_access_key_id']
         os.environ['AWS_SECRET_ACCESS_KEY'] = kwargs['aws_secret_access_key']

@@ -21,4 +21,4 @@ if __name__ == '__main__':
         task_failed = prompt_task()
         assert not task_failed, f"Something went wrong with selected task. returncode: {task_failed}"
         print("Done.")
-        time.sleep(2)
+        time.sleep(0.5)

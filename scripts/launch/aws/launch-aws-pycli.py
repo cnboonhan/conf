@@ -1,7 +1,7 @@
 from common import _in_virtualenv, _be_interactive
 import pathlib
 import os
-from _aws import AWS
+from aws_wrapper import AWS
 
 assert _in_virtualenv(), 'Please source [path to repo]/.venv/bin/activate.'
 dir_path = pathlib.Path(__file__).parent.resolve()

@@ -2,16 +2,11 @@ import gitlab
 from dotenv import dotenv_values, load_dotenv
 from common import _in_virtualenv
 import pathlib
-import os
 import requests
 
 assert _in_virtualenv(), 'Please source [path to repo]/.venv/bin/activate.'
-dir_path = pathlib.Path(__file__).parent.resolve()
-home_path = pathlib.Path(os.path.expanduser('~'))
-dotenv_path = dir_path / '.env'
 
-
-def setup_gitlab(dotenv_path: pathlib.Path = dotenv_path):
+def setup_gitlab(dotenv_path: pathlib.Path):
     config = dotenv_values(dotenv_path)
     load_dotenv(dotenv_path)
 

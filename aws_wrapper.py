@@ -58,10 +58,10 @@ class AWS:
         os.environ['AWS_ACCESS_KEY_ID'] = kwargs['aws_access_key_id']
         os.environ['AWS_SECRET_ACCESS_KEY'] = kwargs['aws_secret_access_key']
         os.environ['AWS_SESSION_TOKEN'] = kwargs['aws_session_token']
-        os.environ['AWS_DEFAULT_REGION'] = self.config["AWS_DEFAULT_REGION"]
+        os.environ['AWS_DEFAULT_REGION'] = self.config['AWS_DEFAULT_REGION']
 
-    def ssm_connect(self, i: str = None) -> None:
-        if not i:
+    def ssm_connect(self, instance_id: str = '') -> None:
+        if not instance_id:
             response = self.ec2.describe_instances(
                 Filters=[
                     {
@@ -74,16 +74,16 @@ class AWS:
             data = {}
             for r in response['Reservations']:
                 for i in r['Instances']:
-                    id = i['InstanceId']
+                    instance_id = i['InstanceId']
                     try:
                         tags = i['Tags']
                     except KeyError:
                         tags = []
                     info = f"InstanceID: {id}\nTags: {tags}"
-                    data[id] = info
+                    data[instance_id] = info
 
             i = prompt_choice([i for i in data.items()],
                               "EC2", "Select EC2 to connect to.")
 
-        if i:
-            _run_command(f"aws ssm start-session --target {i}")
+        if instance_id:
+            _run_command(f"aws ssm start-session --target {instance_id}")

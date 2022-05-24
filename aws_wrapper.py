@@ -79,11 +79,12 @@ class AWS:
                         tags = i['Tags']
                     except KeyError:
                         tags = []
-                    info = f"InstanceID: {id}\nTags: {tags}"
+                    info = f"InstanceID: {instance_id}\nTags: {tags}"
                     data[instance_id] = info
 
             i = prompt_choice([i for i in data.items()],
                               "EC2", "Select EC2 to connect to.")
 
-        if instance_id:
-            _run_command(f"aws ssm start-session --target {instance_id}")
+            if i:
+                print(f"Connecting to {i}")
+                _run_command(f"aws ssm start-session --target {i}")

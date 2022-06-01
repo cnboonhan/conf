@@ -20,5 +20,7 @@ _run_command(f"wget -qO- {nvm_url}",
              stdout=open(install_script_path, 'w'))
 os.rename(tmp_bashrc_path, home_bashrc_path)
 
+_run_command(f"bash {install_script_path}")
+
 subprocess.run(['/bin/bash', '-i', '-c', 'nvm install --lts'])
 

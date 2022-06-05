@@ -73,7 +73,7 @@ rs(){
 }
 
 websh(){
-  PORT=${1:-8000}
+  PORT=${1:-18000}
   sudo ttyd -p "$PORT" login 
 }
 

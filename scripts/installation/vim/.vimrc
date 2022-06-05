@@ -12,6 +12,21 @@ set backspace=indent,eol,start
 set clipboard=unnamedplus
 set pastetoggle=<leader>v
 set signcolumn=number
+set relativenumber
+
+" Toggle signcolumn. Works on vim>=8.1 or NeoVim
+function! ToggleSignColumn()
+    if !exists("b:signcolumn_on") || b:signcolumn_on
+        set signcolumn=no
+        let b:signcolumn_on=0
+        set nornu
+    else
+        set signcolumn=number
+        let b:signcolumn_on=1
+        set rnu
+    endif
+    "set relativenumber! nu! nonu
+endfunction
 
 " Allow persistent clipboard
 autocmd VimLeave * call system('echo ' . shellescape(getreg('+')) . 
@@ -25,7 +40,7 @@ set undodir=/tmp/.vim-undo-dir
 set undofile
 nnoremap <C-e> <C-w>
 
-nnoremap <leader>l :set relativenumber! nu! nonu<CR>
+nnoremap <leader>l :call ToggleSignColumn() <CR>
 nmap <leader><leader> :noh<CR>
 
 " More advanced things

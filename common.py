@@ -7,6 +7,8 @@ import code
 import readline
 import rlcompleter
 import signal
+import platform
+import requests
 
 
 def _run_command(cmd: str, capture_output: bool = False, stdin=None, stdout=None, stderr=None, check_returncode: bool = True, shell=False) -> str:
@@ -20,6 +22,18 @@ def _run_command(cmd: str, capture_output: bool = False, stdin=None, stdout=None
     else:
         return ''
 
+def _download_gitlab_release(user: str, repo: str):
+    url = f"https://api.github.com/repos/{user}/{repo}/releases/latest" 
+    r = requests.get(url)
+    assets = r.json()['assets']
+    for asset in assets:
+        browser_url = asset['browser_download_url'].lower()
+        if platform.processor().lower() in browser_url:
+            if platform.system().lower() in browser_url:
+                d = requests.get(browser_url)
+                filename = browser_url.split('/')[-1]
+                open(f"/tmp/{filename}", 'wb').write(r.content)
+                return filename
 
 def _dependency_not_installed(dep: str) -> bool:
     resp = 'installed' in _run_command(

@@ -16,3 +16,9 @@ jobs:
         run: |
           wget https://raw.githubusercontent.com/cnboonhan/conf/main/bootstrap.py
           python3 bootstrap.py
+
+      - name: Install Node
+        run: |
+          source "$HOME/.conf/.venv/bin/activate"
+          cd "$HOME/.conf" && python3 -m scripts.installation.node.install-node
+          deactivate

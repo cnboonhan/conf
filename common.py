@@ -44,14 +44,9 @@ def _dependency_not_installed(dep: str) -> bool:
 
 
 def _install_dependencies(deps: List[str]) -> None:
-    import lsb_release
-    match lsb_release.get_distro_information()['ID']:
-        case 'Ubuntu':
-            ds = list(filter(_dependency_not_installed, deps))
-            if ds:
-                _run_command(f"sudo apt -qqq install -y {' '.join(ds)}")
-        case _:
-            raise Exception('Unrecognized OS. Terminating..')
+    ds = list(filter(_dependency_not_installed, deps))
+    if ds:
+        _run_command(f"sudo apt -qqq install -y {' '.join(ds)}")
 
 
 def _get_base_prefix_compat():

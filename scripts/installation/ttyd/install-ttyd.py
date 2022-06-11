@@ -9,6 +9,6 @@ dir_path = pathlib.Path(__file__).parent.resolve()
 home_path = pathlib.Path(os.path.expanduser('~'))
 ttyd_path = '/usr/local/bin/ttyd'
 
-filename = _download_github_release('docker', 'compose', [platform.processor, platform.system()])
+filename = _download_github_release('docker', 'compose', [platform.processor(), platform.system()])
 _run_command(f"sudo mv /tmp/{filename} {ttyd_path}")
 _run_command(f"sudo chmod +x {ttyd_path}")

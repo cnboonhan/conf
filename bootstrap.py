@@ -19,7 +19,11 @@ def _get_core_repository(path: pathlib.Path) -> None:
 
 
 if __name__ == '__main__':
-    path = pathlib.Path(os.path.expanduser('~'))
     p = subprocess.run('sudo apt install -y git python3-venv'.split())
-    _get_core_repository(path / ".conf")
+
+    path = pathlib.Path(os.path.expanduser('~'))
+    if not os.path.exists(path / ".conf"):
+        _get_core_repository(path / ".conf")
+    else:
+        print(".conf folder already exists, not updating.")
     _create_venv(path / ".conf/.venv")

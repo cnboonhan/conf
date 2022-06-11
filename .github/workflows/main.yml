@@ -12,8 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      
       - name: Run bootstrap
         run: |
           wget https://raw.githubusercontent.com/cnboonhan/conf/main/bootstrap.py

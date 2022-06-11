@@ -7,7 +7,6 @@ import code
 import readline
 import rlcompleter
 import signal
-import platform
 import requests
 
 
@@ -22,19 +21,18 @@ def _run_command(cmd: str, capture_output: bool = False, stdin=None, stdout=None
     else:
         return ''
 
-def _download_github_release(user: str, repo: str) -> str:
+def _download_github_release(user: str, repo: str, filters: list) -> str:
     url = f"https://api.github.com/repos/{user}/{repo}/releases/latest" 
     r = requests.get(url)
     assert 'assets' in r.json().keys()
     assets = r.json()['assets']
     for asset in assets:
         browser_url = asset['browser_download_url'].lower()
-        if platform.processor().lower() in browser_url:
-            if platform.system().lower() in browser_url:
-                d = requests.get(browser_url)
-                filename = browser_url.split('/')[-1]
-                open(f"/tmp/{filename}", 'wb').write(d.content)
-                return filename
+        if all(f.lower() in browser_url for f in filters):
+            d = requests.get(browser_url)
+            filename = browser_url.split('/')[-1]
+            open(f"/tmp/{filename}", 'wb').write(d.content)
+            return filename
     raise ValueError('Failed to download Github Release.')
 
 def _dependency_not_installed(dep: str) -> bool:

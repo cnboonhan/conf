@@ -6,7 +6,7 @@
 #openssl x509 -req -extfile <(printf "subjectAltName=DNS:$URL") -days 365 -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out "$URL.crt"
 
 # Register runner
-#docker exec launch-gitlab-runner-1 bash -c "gitlab-runner register --non-interactive --url "https://gitlab.local.com" --registration-token <TOKEN> --executor docker --docker-image alpine --name runner1 --tls-ca-file /etc/gitlab/ssl/gitlab.local.com.crt"
+#docker exec launch-gitlab-runner-1 bash -c "gitlab-runner register --non-interactive --url "https://gitlab.local.com" --registration-token <TOKEN> --executor docker --docker-image alpine --name runner1 --tls-ca-file /etc/gitlab/ssl/gitlab.local.com.crt --docker-network-mode=gitlab-network"
 
 
 version: '3.5'

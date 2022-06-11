@@ -17,32 +17,52 @@ jobs:
           wget https://raw.githubusercontent.com/cnboonhan/conf/main/bootstrap.py
           python3 bootstrap.py
 
-      - name: Install Node
+      # Not testing install-shell script as it requires user input
+      #- name: Install Shell
+        #run: |
+          #source "$HOME/.conf/.venv/bin/activate"
+          #cd "$HOME/.conf" && python3 -m scripts.installation.shell.install-shell
+          #deactivate
+
+      #- name: Install Node and vim
+        #run: |
+          #source "$HOME/.conf/.venv/bin/activate"
+          #cd "$HOME/.conf" && python3 -m scripts.installation.node.install-node
+          #cd "$HOME/.conf" && python3 -m scripts.installation.vim.install-vim
+          #deactivate
+
+      #- name: Install ttyd
+        #run: |
+          #source "$HOME/.conf/.venv/bin/activate"
+          #cd "$HOME/.conf" && python3 -m scripts.installation.ttyd.install-ttyd
+          #deactivate
+
+      #- name: Install Docker
+        #run: |
+          #source "$HOME/.conf/.venv/bin/activate"
+          #cd "$HOME/.conf" && python3 -m scripts.installation.docker.install-docker
+          #deactivate
+
+      #- name: Install Docker-Compose
+        #run: |
+          #source "$HOME/.conf/.venv/bin/activate"
+          #cd "$HOME/.conf" && python3 -m scripts.installation.docker.install-docker-compose
+          #deactivate
+           
+      - name: Install Devops Libs
         run: |
           source "$HOME/.conf/.venv/bin/activate"
-          cd "$HOME/.conf" && python3 -m scripts.installation.node.install-node
+          cd "$HOME/.conf" && python3 -m scripts.installation.devops.install-devops-lib
           deactivate
 
-      - name: Install Vim
+      - name: Install Tmux
         run: |
           source "$HOME/.conf/.venv/bin/activate"
-          cd "$HOME/.conf" && python3 -m scripts.installation.vim.install-vim
+          cd "$HOME/.conf" && python3 -m scripts.installation.tmux.install-tmux
           deactivate
 
-      - name: Install ttyd
+      - name: Install Vscode-server
         run: |
           source "$HOME/.conf/.venv/bin/activate"
-          cd "$HOME/.conf" && python3 -m scripts.installation.ttyd.install-ttyd
-          deactivate
-
-      - name: Install Docker
-        run: |
-          source "$HOME/.conf/.venv/bin/activate"
-          cd "$HOME/.conf" && python3 -m scripts.installation.docker.install-docker
-          deactivate
-
-      - name: Install Docker-Compose
-        run: |
-          source "$HOME/.conf/.venv/bin/activate"
-          cd "$HOME/.conf" && python3 -m scripts.installation.docker.install-docker-compose
+          cd "$HOME/.conf" && python3 -m scripts.installation.vscode-server.install-vscode-server
           deactivate

@@ -28,3 +28,9 @@ jobs:
           source "$HOME/.conf/.venv/bin/activate"
           cd "$HOME/.conf" && python3 -m scripts.installation.vim.install-vim
           deactivate
+
+      - name: Install ttyd
+        run: |
+          source "$HOME/.conf/.venv/bin/activate"
+          cd "$HOME/.conf" && python3 -m scripts.installation.ttyd.install-ttyd
+          deactivate

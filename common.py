@@ -22,7 +22,7 @@ def _run_command(cmd: str, capture_output: bool = False, stdin=None, stdout=None
     else:
         return ''
 
-def _download_gitlab_release(user: str, repo: str):
+def _download_github_release(user: str, repo: str) -> str:
     url = f"https://api.github.com/repos/{user}/{repo}/releases/latest" 
     r = requests.get(url)
     assert 'assets' in r.json().keys()
@@ -35,6 +35,7 @@ def _download_gitlab_release(user: str, repo: str):
                 filename = browser_url.split('/')[-1]
                 open(f"/tmp/{filename}", 'wb').write(d.content)
                 return filename
+    raise ValueError('Failed to download Github Release.')
 
 def _dependency_not_installed(dep: str) -> bool:
     resp = 'installed' in _run_command(
@@ -67,7 +68,7 @@ def _install_pip_dependencies(path: pathlib.Path) -> None:
     _run_command(f"pip3 install -q -r {path}")
 
 
-def _be_interactive(loc: dict):
+def _be_interactive(loc: dict) -> None:
     vars = globals()
     vars.update(loc)
     readline.set_completer(rlcompleter.Completer(vars).complete)

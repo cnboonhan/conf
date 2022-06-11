@@ -95,21 +95,3 @@ m() {
     cd "$HOME/.conf" && python -m main
     deactivate
 }
-
-aws_env() {
-  [ -z "${AWS_ACCESS_KEY_ID}" ] && ( echo "AWS_ACCESS_KEY_ID needed"  && exit 1 )
-  [ -z "${AWS_SECRET_ACCESS_KEY}" ] && ( echo "AWS_SECRET_ACCESS_KEY needed" && exit 1 )
-  OUT_FILE="/tmp/aws_env"
-
-  AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-ap-southeast-1}
-  AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN:-''}
-  HTTP_PROXY_URL=${HTTP_PROXY_URL:-''}
-
-  echo AWS_DEFAULT_REGION="$AWS_DEFAULT_REGION" > $OUT_FILE
-  echo AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID" >> $OUT_FILE
-  echo AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY" >> $OUT_FILE
-  echo AWS_SESSION_TOKEN="$AWS_SESSION_TOKEN" >> $OUT_FILE
-  echo HTTP_PROXY_URL="$HTTP_PROXY_URL" >> $OUT_FILE
-
-  cat $OUT_FILE
-}

@@ -3,6 +3,11 @@ Host github.com
   User git
   IdentityFile ~/.decrypt/.ssh/id_rsa_github
 
+Host gitlab.local.com
+  HostName gitlab.local.com
+  User git
+  IdentityFile ~/.decrypt/.ssh/id_rsa_gitlab
+
 # Travel Hotspot
 Host hotspot
   User root

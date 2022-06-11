@@ -8,6 +8,7 @@ import readline
 import rlcompleter
 import signal
 import requests
+import pwd
 
 
 def _run_command(cmd: str, capture_output: bool = False, stdin=None, stdout=None, stderr=None, check_returncode: bool = True, shell=False) -> str:
@@ -88,3 +89,8 @@ def _decrypt_folders(encrypt_folder: pathlib.Path, decrypt_folder: pathlib.Path)
     _run_command(f"fusermount -u {decrypt_folder}",
                  capture_output=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check_returncode=False)
     _run_command(f"gocryptfs {encrypt_folder} {decrypt_folder}", capture_output=False)
+
+
+def _get_username() -> str:
+    getlogin = lambda: pwd.getpwuid(os.getuid())[0]
+    return getlogin()

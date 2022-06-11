@@ -1,0 +1,47 @@
+# Generate new certs in /srv/gitlab/config/gitlab/ssl
+#URL=gitlab.local.com
+#openssl genrsa -out ca.key 2048
+#openssl req -new -x509 -days 365 -key ca.key -subj "/C=CN/ST=GD/L=SZ/O=Acme, Inc./CN=Acme Root CA" -out ca.crt
+#openssl req -newkey rsa:2048 -nodes -keyout "$URL.key" -subj "/C=CN/ST=GD/L=SZ/O=Acme, Inc./CN=*.$URL" -out server.csr
+#openssl x509 -req -extfile <(printf "subjectAltName=DNS:$URL") -days 365 -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out "$URL.crt"
+
+# Register runner
+#docker exec launch-gitlab-runner-1 bash -c "gitlab-runner register --non-interactive --url "https://gitlab.local.com" --registration-token <TOKEN> --executor docker --docker-image alpine --name runner1 --tls-ca-file /etc/gitlab/ssl/gitlab.local.com.crt"
+
+
+version: '3.5'
+services:
+  gitlab:
+    image: gitlab/gitlab-ce:latest
+    hostname: gitlab.local.com
+    restart: unless-stopped
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        gitlab_rails['gitlab_shell_ssh_port'] = 8822
+        external_url 'https://gitlab.local.com'
+    ports:
+      - "8800:80"
+      - "8443:443"
+      - "8822:22"
+    volumes:
+      - /srv/gitlab/config/gitlab:/etc/gitlab
+      - /srv/gitlab/data/gitlab:/var/opt/gitlab
+      - /srv/gitlab/logs:/var/log/gitlab
+    networks:
+      - gitlab
+
+  gitlab-runner:
+    image: gitlab/gitlab-runner:alpine
+    restart: unless-stopped
+    depends_on:
+      - gitlab
+    volumes:
+      - /srv/gitlab/config/gitlab-runner:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /srv/gitlab/config/gitlab/ssl:/etc/gitlab/ssl
+    networks:
+      - gitlab
+
+networks:
+  gitlab:
+    name: gitlab-network

@@ -22,3 +22,9 @@ jobs:
           source "$HOME/.conf/.venv/bin/activate"
           cd "$HOME/.conf" && python3 -m scripts.installation.node.install-node
           deactivate
+
+      - name: Install Vim
+        run: |
+          source "$HOME/.conf/.venv/bin/activate"
+          cd "$HOME/.conf" && python3 -m scripts.installation.vim.install-vim
+          deactivate

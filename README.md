@@ -1,3 +1,3 @@
 # conf
 
-My configuration toolkit
+My configuration toolkit.

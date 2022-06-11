@@ -24,7 +24,7 @@ if os.path.exists(aws_zip_path):
 
 _run_command(f"curl {aws_url}  -o {aws_zip_path}")
 _run_command(f"unzip {aws_zip_path} -d /tmp")
-_run_command(f"sudo {aws_path}/install || sudo {aws_path}/install --update")
+_run_command(f"sudo {aws_path}/install --update")
 
 _run_command(f"curl {ssm_deb_url} -o {ssm_deb_path}")
 _run_command(f"sudo dpkg -i {ssm_deb_path}")

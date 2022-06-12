@@ -19,7 +19,7 @@ def _get_core_repository(path: pathlib.Path) -> None:
 
 
 if __name__ == '__main__':
-    p = subprocess.run('sudo apt install -y git python3-venv'.split())
+    p = subprocess.run('sudo apt install -y git wget python3-venv'.split())
 
     path = pathlib.Path(os.path.expanduser('~'))
     if not os.path.exists(path / ".conf"):

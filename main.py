@@ -8,7 +8,15 @@
 import pathlib
 import time
 import os
-from common import _in_virtualenv
+import sys
+
+def _get_base_prefix_compat():
+    """Get base/real prefix, or sys.prefix if there is none."""
+    return getattr(sys, "base_prefix", None) or getattr(sys, "real_prefix", None) or sys.prefix
+
+def _in_virtualenv():
+    return _get_base_prefix_compat() != sys.prefix
+
 assert _in_virtualenv(), 'Please source [path to repo]/.venv/bin/activate.'
 dir_path = pathlib.Path(__file__).parent.resolve()
 _run_command(f"pip3 install -q -r {dir_path / 'requirements.txt'}")

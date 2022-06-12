@@ -19,7 +19,7 @@ def _in_virtualenv():
 
 assert _in_virtualenv(), 'Please source [path to repo]/.venv/bin/activate.'
 dir_path = pathlib.Path(__file__).parent.resolve()
-_run_command(f"pip3 install -q -r {dir_path / 'requirements.txt'}")
+subprocess.run(f"pip3 install -q -r {dir_path / 'requirements.txt'}".split())
 
 from prompts import prompt_task
 

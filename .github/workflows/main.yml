@@ -17,11 +17,17 @@ jobs:
           wget https://raw.githubusercontent.com/cnboonhan/conf/main/bootstrap.py
           python3 bootstrap.py
 
-      # Not testing install-shell script as it requires user input
-      #- name: Install Shell
+      - name: Install Shell
+        run: |
+          source "$HOME/.conf/.venv/bin/activate"
+          cd "$HOME/.conf" && python3 -m scripts.installation.shell.install-shell
+          deactivate
+
+      # Not testing install-goencryptfs script as it requires user input
+      #- name: Install Goencryptfs
         #run: |
           #source "$HOME/.conf/.venv/bin/activate"
-          #cd "$HOME/.conf" && python3 -m scripts.installation.shell.install-shell
+          #cd "$HOME/.conf" && python3 -m scripts.installation.shell.install-goencryptfs
           #deactivate
 
       - name: Install Node and vim

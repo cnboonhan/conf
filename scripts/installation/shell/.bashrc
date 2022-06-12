@@ -21,7 +21,7 @@ alias ls='ls --color=auto'
     echo "No bash completion available"
 
 get_battery() {
-    /usr/bin/cat "$(find /sys/class/power_supply/ | grep BAT | head -1)/capacity" 2>/dev/null || echo 100
+    /usr/bin/cat "$(find /sys/class/power_supply/ 2>/dev/null | grep BAT | head -1)/capacity" 2>/dev/null || echo 100
 }
 
 parse-git-branch() {

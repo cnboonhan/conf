@@ -10,9 +10,9 @@ home_path = pathlib.Path(os.path.expanduser('~'))
 
 _install_dependencies(['netcat', 'gocryptfs', 'xclip'])
 
-if not shutil.which('google-chrome'):
-    _run_command("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/gc.deb") 
-    _run_command("sudo dpkg -i /tmp/gc.deb")
+#if not shutil.which('google-chrome'):
+#    _run_command("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/gc.deb") 
+#    _run_command("sudo dpkg -i /tmp/gc.deb")
 
 if not os.path.isdir(home_path / '.encrypt'):
     print("Creating encrypted directory as it does not exist")

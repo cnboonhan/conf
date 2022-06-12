@@ -9,6 +9,7 @@ import pathlib
 import time
 import os
 import sys
+import subprocess
 
 def _get_base_prefix_compat():
     """Get base/real prefix, or sys.prefix if there is none."""

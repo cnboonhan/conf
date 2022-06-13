@@ -42,19 +42,7 @@ jobs:
           source "$HOME/.conf/.venv/bin/activate"
           cd "$HOME/.conf" && python3 -m scripts.installation.ttyd.install-ttyd
           deactivate
-
-      - name: Install Docker
-        run: |
-          source "$HOME/.conf/.venv/bin/activate"
-          cd "$HOME/.conf" && python3 -m scripts.installation.docker.install-docker
-          deactivate
-
-      - name: Install Docker-Compose
-        run: |
-          source "$HOME/.conf/.venv/bin/activate"
-          cd "$HOME/.conf" && python3 -m scripts.installation.docker.install-docker-compose
-          deactivate
-           
+ 
       - name: Install Devops Libs
         run: |
           source "$HOME/.conf/.venv/bin/activate"
@@ -77,4 +65,16 @@ jobs:
         run: |
           source "$HOME/.conf/.venv/bin/activate"
           cd "$HOME/.conf" && python3 -m scripts.installation.vscode-server.install-vscode-server
+          deactivate
+
+      - name: Install Docker
+        run: |
+          source "$HOME/.conf/.venv/bin/activate"
+          cd "$HOME/.conf" && python3 -m scripts.installation.docker.install-docker
+          deactivate
+
+      - name: Install Docker-Compose
+        run: |
+          source "$HOME/.conf/.venv/bin/activate"
+          cd "$HOME/.conf" && python3 -m scripts.installation.docker.install-docker-compose
           deactivate

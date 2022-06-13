@@ -97,6 +97,6 @@ m() {
 }
 
 proxy-start() {
-    ssh 127.0.0.1 -p 2222 -D 1080
     privoxy /etc/privoxy/config
+    ssh 127.0.0.1 -p 2222 -D 1080
 }

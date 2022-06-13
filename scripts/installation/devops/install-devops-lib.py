@@ -3,6 +3,7 @@ from common import _in_virtualenv, _install_pip_dependencies, _install_dependenc
 import pathlib
 import os
 import shutil
+import platform
 
 assert _in_virtualenv(), "Please source [path to repo]/.venv/bin/activate."
 dir_path = pathlib.Path(__file__).parent.resolve()
@@ -10,7 +11,11 @@ home_path = pathlib.Path(os.path.expanduser('~'))
 aws_path = '/tmp/aws'
 aws_zip_path = '/tmp/awscliv2.zip'
 aws_url = "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
-ssm_deb_url = "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb"
+if platform.processor() == 'x86_64':
+    ssm_deb_url = "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb"
+else:
+    # Temporary: Only targeting ARM as alternate processor version
+    ssm_deb_url = "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_arm64/session-manager-plugin.deb" 
 ssm_deb_path = "/tmp/session-manager-plugin.deb"
 
 _install_pip_dependencies(dir_path / 'requirements-devops.txt')

@@ -61,6 +61,12 @@ jobs:
           cd "$HOME/.conf" && python3 -m scripts.installation.devops.install-devops-lib
           deactivate
 
+      - name: Install Localstack
+        run: |
+          source "$HOME/.conf/.venv/bin/activate"
+          cd "$HOME/.conf" && python3 -m scripts.installation.devops.install-localstack
+          deactivate
+
       - name: Install Tmux
         run: |
           source "$HOME/.conf/.venv/bin/activate"

@@ -13,7 +13,7 @@ aws_url = "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
 ssm_deb_url = "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb"
 ssm_deb_path = "/tmp/session-manager-plugin.deb"
 
-_install_pip_dependencies(dir_path / 'requirements.txt')
+_install_pip_dependencies(dir_path / 'requirements-devops.txt')
 _install_dependencies(['python3-tk', 'jq', 'unzip'])
 
 if os.path.exists(aws_path):

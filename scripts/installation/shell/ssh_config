@@ -17,8 +17,7 @@ Host hotspot
 
 # Android Phone Proxy
 Host proxy
-  User u0_a184
-  #HostName proxy.local
-  HostName 10.8.0.2
+  User root
+  HostName linux.local
   Port 8022
   IdentityFile ~/.decrypt/.ssh/id_rsa

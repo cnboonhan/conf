@@ -30,7 +30,6 @@ passwd    # Set password
 # Disable App Management ( to prevent phone from terminating apps ) for Termux, OpenSSHD
 
 # Start sshd and avahi-deamon on phone
-tmux
 sshd
 avahi-daemon
 
@@ -39,7 +38,7 @@ Replace User and Hostname as needed
 tee -a ~/.ssh/config << END
 Host Q
         User u0_a184
-        HostName proxy.local
+        HostName linux.local
         Port 8022
         IdentityFile ~/.ssh/id_rsa
 END
@@ -51,11 +50,18 @@ tmux attach
 ssh 127.0.0.1 -p 2222 -D 1080
 
 # Set up Privoxy for HTTP proxy
-tee -a config << END
+tee -a /etc/privoxy/config << END
 forward-socks5t / 127.0.0.1:1080 .
 listen-address 0.0.0.0:1090
 END
 privoxy config
 
+# Add this command to .bashrc and run it
+proxy-start() {
+    privoxy /etc/privoxy/config
+    ssh 127.0.0.1 -p 2222 -D 1080
+}
+
 # Connect to HTTP proxy at port 1090
+
 ```

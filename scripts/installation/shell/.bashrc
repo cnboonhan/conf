@@ -95,8 +95,3 @@ m() {
     cd "$HOME/.conf" && python -m main
     deactivate
 }
-
-proxy-start() {
-    privoxy /etc/privoxy/config
-    ssh 127.0.0.1 -p 2222 -D 1080
-}

@@ -29,25 +29,14 @@ passwd    # Set password
 
 # Disable App Management ( to prevent phone from terminating apps ) for Termux, OpenSSHD
 
-# Start sshd and avahi-deamon on phone
-sshd
-avahi-daemon
-
-# From Client
 Replace User and Hostname as needed
 tee -a ~/.ssh/config << END
 Host Q
-        User u0_a184
+        User root
         HostName linux.local
         Port 8022
         IdentityFile ~/.ssh/id_rsa
 END
-
-ssh Q
-tmux attach
-
-# Set up SOCKS5 proxy to OpenSSHD
-ssh 127.0.0.1 -p 2222 -D 1080
 
 # Set up Privoxy for HTTP proxy
 tee -a /etc/privoxy/config << END
@@ -56,12 +45,31 @@ listen-address 0.0.0.0:1090
 END
 privoxy config
 
-# Add this command to .bashrc and run it
-proxy-start() {
-    privoxy /etc/privoxy/config
-    ssh 127.0.0.1 -p 2222 -D 1080
-}
+# Set up .profile
+tee -a .profile << END
+SESSION_NAME=proot
 
-# Connect to HTTP proxy at port 1090
+sshd
 
+if [[ ! "$TMUX" ]]; then
+  tmux has-session -t $SESSION_NAME 2> /dev/null
+
+  if [ $? != 0 ]; then
+    tmux new-session -d -s $SESSION_NAME
+
+    tmux rename-window -t $SESSION_NAME:0 proot
+    tmux send -t $SESSION_NAME:proot.0 "proot-distro login debian" ENTER
+    tmux send -t $SESSION_NAME:proot.0 "ttyd -p 18000 login" ENTER
+
+    tmux new-window -t $SESSION_NAME:1 -n "avahi"
+    tmux send -t $SESSION_NAME:avahi.0 "pkill avahi-daemon; avahi-daemon" ENTER
+
+    tmux new-window -t $SESSION_NAME:2 -n "privoxy"
+    tmux send -t $SESSION_NAME:privoxy.0 "proot-distro login debian" ENTER
+    tmux send -t $SESSION_NAME:privoxy.0 "privoxy /etc/privoxy/config; ssh 127.0.0.1 -p 2222 -D 1080" ENTER
+  fi
+fi
+END
+
+# Connect to HTTP proxy at linux.local:1090
 ```

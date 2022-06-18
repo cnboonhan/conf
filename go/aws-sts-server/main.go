@@ -22,3 +22,18 @@ func main() {
 	http.HandleFunc("/sts", sts)
 	http.ListenAndServe(":8090", nil)
 }
+
+/* Permissive Policy
+{
+		"Version": "2012-10-17",
+		"Statement": [
+				{
+						"Effect": "Allow",
+						"Principal": {
+								"AWS": "*"
+						},
+						"Action": "sts:AssumeRole"
+				}
+		]
+}
+*/

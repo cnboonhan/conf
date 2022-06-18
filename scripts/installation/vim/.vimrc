@@ -80,6 +80,7 @@ nmap <leader>Q :TagbarToggle<CR>
 nnoremap <leader>g :GitGutterToggle<CR>
 
 " COC-NVIM
+nnoremap <leader>Z :Format<CR>
 let b:coc_diagnostic_disable=1
 
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some

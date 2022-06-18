@@ -17,3 +17,5 @@ _create_conf_symlink(dir_path / '.vimrc', home_path / '.vimrc')
 
 _run_command('vim -c PlugClean! -c qall!')
 _run_command('vim -c PlugInstall -c qall!')
+
+# CocInstall coc-pyright coc-json coc-go

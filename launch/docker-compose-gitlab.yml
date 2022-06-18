@@ -5,6 +5,9 @@
 #openssl req -newkey rsa:2048 -nodes -keyout "$URL.key" -subj "/C=CN/ST=GD/L=SZ/O=Acme, Inc./CN=*.$URL" -out server.csr
 #openssl x509 -req -extfile <(printf "subjectAltName=DNS:$URL") -days 365 -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out "$URL.crt"
 
+# Get self signed cert if needed and put in --tls-ca-file 
+# openssl s_client -showcerts -proxy linux.local:1090 -connect gitlab.local.com:443 </dev/null 2>/dev/null | openssl x509 -outform PEM > mycertfile.pem
+
 # Register runner
 #docker exec launch-gitlab-runner-1 bash -c "gitlab-runner register --non-interactive --url "https://gitlab.local.com" --registration-token <TOKEN> --executor docker --docker-image alpine --name runner1 --tls-ca-file /etc/gitlab/ssl/gitlab.local.com.crt --docker-network-mode=gitlab-network"
 

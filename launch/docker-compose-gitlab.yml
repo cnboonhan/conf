@@ -11,6 +11,11 @@
 # Register runner
 #docker exec launch-gitlab-runner-1 bash -c "gitlab-runner register --non-interactive --url "https://gitlab.local.com" --registration-token <TOKEN> --executor docker --docker-image alpine --name runner1 --tls-ca-file /etc/gitlab/ssl/gitlab.local.com.crt --docker-network-mode=gitlab-network"
 
+# Add the following to config.toml [[runners]] if proxy is needed
+#   pre_clone_script = "git config --global http.proxy $HTTP_PROXY; git config --global https.proxy $HTTPS_PROXY"
+#   environment = ["https_proxy=http://127.0.0.1:1090", "http_proxy=http://127.0.0.1:1090", "HTTPS_PROXY=127.0.0.1:1090", "HTTP_PROXY=127.0.0.1:1090"]
+# Add the following to [runner.docker] if network_host needs to be set
+#   network_mode = "host"
 
 version: '3.5'
 services:

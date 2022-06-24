@@ -19,7 +19,7 @@ https://f-droid.en.softonic.com/android
 
 # On termux, run
 pkg update
-pkg install openssh iproute2 tmux avahi dnsutils traceroute privoxy
+pkg install openssh iproute2 tmux avahi dnsutils traceroute privoxy openssl-tool
 whoami    # Remember this
 ip a      # Get Ip address of phone
 passwd    # Set password

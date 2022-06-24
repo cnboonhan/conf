@@ -47,16 +47,32 @@ hc(){
   HOME=/home/$USER
 }
 
-socks(){
-  PORT="${1:-1080}"
-  gsettings set org.gnome.system.proxy mode 'manual'
+proxy-socks(){
+  ADDR="${1:-127.0.0.1}"
+  PORT="${2:-1080}"
+  gsettings set org.gnome.system.proxy mode manual
   gsettings set org.gnome.system.proxy.socks port "$PORT"
-  gsettings set org.gnome.system.proxy.socks host 'localhost'
+  gsettings set org.gnome.system.proxy.socks host "$ADDR"
   gsettings set org.gnome.system.proxy ignore-hosts "['localhost', '127.0.0.0/8', '::1']"
 }
 
-unsocks(){
-  gsettings set org.gnome.system.proxy mode 'auto'
+no-proxy-socks(){
+  gsettings set org.gnome.system.proxy mode none
+}
+
+proxy-http(){
+  ADDR="${1:-192.168.49.1}"
+  PORT="${2:-8282}"
+  gsettings set org.gnome.system.proxy mode manual
+  gsettings set org.gnome.system.proxy.http port "$PORT"
+  gsettings set org.gnome.system.proxy.http host "$ADDR"
+  gsettings set org.gnome.system.proxy.https port "$PORT"
+  gsettings set org.gnome.system.proxy.https host "$ADDR"
+  gsettings set org.gnome.system.proxy ignore-hosts "['localhost', '127.0.0.0/8', '::1']"
+}
+
+no-proxy-http(){
+  gsettings set org.gnome.system.proxy mode none
 }
 
 rs(){

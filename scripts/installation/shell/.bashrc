@@ -56,6 +56,12 @@ proxy-socks(){
   gsettings set org.gnome.system.proxy.socks port "$PORT"
   gsettings set org.gnome.system.proxy.socks host "$ADDR"
   gsettings set org.gnome.system.proxy ignore-hosts "['localhost', '127.0.0.0/8', '::1']"
+  cat <<EOF | sudo tee /etc/apt/apt.conf.d/proxy.conf > /dev/null
+Acquire {
+  HTTP::proxy "socks5h://$ADDR:$PORT";
+  HTTPS::proxy "socks5h://$ADDR:$PORT";
+}
+EOF
 }
 
 proxy-http(){

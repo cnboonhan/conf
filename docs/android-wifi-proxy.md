@@ -24,6 +24,11 @@ whoami    # Remember this
 ip a      # Get Ip address of phone
 passwd    # Set password
 
+# Use this to install linux distro on termux
+# https://github.com/termux/proot-distro
+pkg install proot-distro
+proot-distro install debian
+
 # Open Work Profile and run SimpleSSHD
 # Run GlobalProtect and Login
 
@@ -45,7 +50,7 @@ listen-address 0.0.0.0:1090
 END
 privoxy config
 
-# Set up .profile
+# Set up .profile in termux
 tee -a .profile << END
 SESSION_NAME=proot
 

@@ -53,6 +53,8 @@ proxy-socks(){
   PROXY_IGNORE="${3:-192.168.49.0/24}"
   export HTTP_PROXY="socks5h://$ADDR:$PORT"
   export HTTPS_PROXY="socks5h://$ADDR:$PORT"
+  export http_proxy="socks5h://$ADDR:$PORT"
+  export https_proxy="socks5h://$ADDR:$PORT"
   gsettings set org.gnome.system.proxy mode manual
   gsettings set org.gnome.system.proxy.socks port "$PORT"
   gsettings set org.gnome.system.proxy.socks host "$ADDR"
@@ -71,6 +73,8 @@ proxy-http(){
   PROXY_IGNORE="${3:-192.168.49.0/24}"
   export HTTP_PROXY="$ADDR:$PORT"
   export HTTPS_PROXY="$ADDR:$PORT"
+  export http_proxy="$ADDR:$PORT"
+  export https_proxy="$ADDR:$PORT"
   gsettings set org.gnome.system.proxy mode manual
   gsettings set org.gnome.system.proxy.http port "$PORT"
   gsettings set org.gnome.system.proxy.http host "$ADDR"
@@ -88,6 +92,8 @@ EOF
 no-proxy(){
   unset HTTP_PROXY
   unset HTTPS_PROXY
+  unset http_proxy
+  unset https_proxy
   sudo rm /etc/apt/apt.conf.d/proxy.conf  2> /dev/null
   gsettings set org.gnome.system.proxy mode none
 }

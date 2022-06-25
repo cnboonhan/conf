@@ -16,5 +16,5 @@ _install_dependencies(['netcat', 'xclip'])
 
 os.makedirs(home_path / '.ssh', exist_ok=True)
 _create_conf_symlink(dir_path / '.bashrc', home_path / '.bashrc')
-_create_conf_symlink(dir_path / 'ssh_config', home_path / '.ssh/config')
+# _create_conf_symlink(dir_path / 'ssh_config', home_path / '.ssh/config')
 _create_conf_symlink(dir_path / '.ignore', home_path / '.ignore')

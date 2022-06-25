@@ -2,6 +2,7 @@ Host github.com
   HostName github.com
   User git
   IdentityFile ~/.decrypt/.ssh/id_rsa_github
+  # ProxyCommand nc -X connect -x linux.local:8282 %h %p
 
 Host gitlab.local.com
   HostName gitlab.local.com

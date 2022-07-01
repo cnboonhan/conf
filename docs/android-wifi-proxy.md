@@ -85,6 +85,7 @@ git clone --depth=1 https://github.com/adi1090x/termux-desktop.git
 cd termux-desktop; ./setup.sh --install
 
 cd $HOME
+pkg install otter-browser
 git clone https://github.com/novnc/noVNC.git
 $HOME/noVNC/utils/novnc_proxy --vnc localhost:5901
 ```

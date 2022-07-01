@@ -66,12 +66,15 @@ if [[ ! "$TMUX" ]]; then
     tmux send -t $SESSION_NAME:proot.0 "proot-distro login debian" ENTER
     tmux send -t $SESSION_NAME:proot.0 "ttyd -p 18000 login" ENTER
 
-    tmux new-window -t $SESSION_NAME:1 -n "avahi"
-    tmux send -t $SESSION_NAME:avahi.0 "pkill avahi-daemon; avahi-daemon" ENTER
+    tmux new-window -t $SESSION_NAME:1 -n "novnc"
+    tmux send -t $SESSION_NAME:novnc.0 "$HOME/noVNC/utils/novnc_proxy --vnc localhost:5901" ENTER
 
     tmux new-window -t $SESSION_NAME:2 -n "privoxy"
     tmux send -t $SESSION_NAME:privoxy.0 "proot-distro login debian" ENTER
     tmux send -t $SESSION_NAME:privoxy.0 "privoxy /etc/privoxy/config; ssh 127.0.0.1 -p 2222 -D 1080" ENTER
+
+    tmux new-window -t $SESSION_NAME:3 -n "mdns"
+    tmux send -t $SESSION_NAME:mdns.0 "pkill avahi-daemon; avahi-daemon" ENTER
   fi
 fi
 END

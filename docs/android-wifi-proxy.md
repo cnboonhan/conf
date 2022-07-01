@@ -77,4 +77,14 @@ fi
 END
 
 # Connect to HTTP proxy at linux.local:1090
+
+# Additional: Add termux-desktop + noVNC
+cd $HOME
+pkg upgrade && pkg install git
+git clone --depth=1 https://github.com/adi1090x/termux-desktop.git
+cd termux-desktop; ./setup.sh --install
+
+cd $HOME
+git clone https://github.com/novnc/noVNC.git
+$HOME/noVNC/utils/novnc_proxy --vnc localhost:5901
 ```

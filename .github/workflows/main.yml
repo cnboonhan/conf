@@ -78,3 +78,9 @@ jobs:
           source "$HOME/.conf/.venv/bin/activate"
           cd "$HOME/.conf" && python3 -m scripts.installation.docker.install-docker-compose
           deactivate
+
+      - name: Install WebDriver
+        run: |
+          source "$HOME/.conf/.venv/bin/activate"
+          cd "$HOME/.conf" && python3 -m scripts.installation.webdriver.install-webdriver
+          deactivate

@@ -26,9 +26,13 @@ jobs:
         run: |
           source "$HOME/.conf/.venv/bin/activate"
           cd "$HOME/.conf" && python3 -m scripts.credentials-grabber.ssdc 
+          openssl enc -aes-256-cbc -in /tmp/cookies.txt -out /tmp/cookies.txt.enc -k ${{ secrets.SSDC_PASSWORD }}
+          echo "openssl enc -d -aes-256-cbc -in cookies.txt.enc -out cookies.txt" > /tmp/decrypt.sh
           deactivate  
 
       - uses: actions/upload-artifact@v3
         with:
           name: creds
-          path: /tmp/cookies.txt
+          path: |
+            /tmp/cookies.txt.enc
+            /tmp/decrypt.sh

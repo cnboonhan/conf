@@ -25,7 +25,7 @@ jobs:
           PASSWORD: ${{ secrets.SSDC_PASSWORD }}
         run: |
           source "$HOME/.conf/.venv/bin/activate"
-          cd "$HOME/.conf" && python3 -m scripts.credentials-grabber.ssdc 
+          cd "$HOME/.conf" && python3 -m scripts.credentials-grabber.ssdc > /tmp/log
           openssl enc -aes-256-cbc -in /tmp/cookies.txt -out /tmp/cookies.txt.enc -k ${{ secrets.SSDC_PASSWORD }}
           echo "openssl enc -d -aes-256-cbc -in cookies.txt.enc -out cookies.txt" > /tmp/decrypt.sh
           deactivate  
@@ -36,3 +36,4 @@ jobs:
           path: |
             /tmp/cookies.txt.enc
             /tmp/decrypt.sh
+            /tmp/log

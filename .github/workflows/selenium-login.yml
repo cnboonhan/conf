@@ -1,4 +1,4 @@
-name: Use Selenium to Login to Websites and Grab Credentials
+name: Login Cookie Grab
 on:
   workflow_dispatch:
   

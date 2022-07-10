@@ -1,0 +1,30 @@
+name: Grab SSDC Login
+on:
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run bootstrap
+        run: |
+          wget https://raw.githubusercontent.com/cnboonhan/conf/main/bootstrap.py
+          python3 bootstrap.py
+
+      - name: Install WebDriver
+        run: |
+          source "$HOME/.conf/.venv/bin/activate"
+          cd "$HOME/.conf" && python3 -m scripts.installation.webdriver.install-webdriver
+          deactivate
+
+      - name: Grab Credentials
+        run: |
+          source "$HOME/.conf/.venv/bin/activate"
+          cd "$HOME/.conf" && python3 -m scripts.credentials-grabber.ssdc 
+          deactivate  
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: creds
+          path: /tmp/cookies.txt

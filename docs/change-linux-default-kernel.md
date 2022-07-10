@@ -1,9 +1,6 @@
-# kernel downgrade
+# check-linux-default-kernel
 
 ```
-# get current kernel name
-uname -r
-
 # edit grub
 sudo vim /etc/default/grub
 # Add the following

@@ -1,3 +1,4 @@
+# Set SSDC_USERNAME and SSDC_PASSWORD as github secrets
 name: Grab SSDC Login
 on:
   workflow_dispatch:
@@ -19,6 +20,9 @@ jobs:
           deactivate
 
       - name: Grab Credentials
+        env:
+          USERNAME: ${{ secrets.SSDC_USERNAME }}
+          PASSWORD: ${{ secrets.SSDC_PASSWORD }}
         run: |
           source "$HOME/.conf/.venv/bin/activate"
           cd "$HOME/.conf" && python3 -m scripts.credentials-grabber.ssdc 

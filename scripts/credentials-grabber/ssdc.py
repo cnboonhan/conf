@@ -26,3 +26,7 @@ cookies = driver.get_cookies()
 cookies_file = open("/tmp/cookies.txt", "w") 
 cookies_file.write(str(cookies))
 cookies_file.close()
+
+cookies_file = open("/tmp/log.txt", "w") 
+cookies_file.write(str(driver.page_source))
+cookies_file.close()

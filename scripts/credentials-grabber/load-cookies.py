@@ -28,4 +28,6 @@ except json.decoder.JSONDecodeError:
 except FileNotFoundError:
     pass
 
+driver.refresh();
+
 code.interact(local=locals())

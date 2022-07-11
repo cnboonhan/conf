@@ -75,7 +75,7 @@ let g:NERDTreeDirArrowCollapsible = '↡'
 let g:NERDTreeWinPos = 'right'
 nmap <leader>q :NERDTreeToggle<CR>
 nmap <leader>Q :TagbarToggle<CR>
-let NERDTreeIgnore = ['\.pyc$', '\.swp$', '\.swo$', '\.git$']
+let NERDTreeIgnore = ['\.pyc$', '\.swp$', '\.swo$', '\.git$', '.vscode', '.venv', '__pycache__']
 
 " gitgutter
 nnoremap <leader>g :GitGutterToggle<CR>

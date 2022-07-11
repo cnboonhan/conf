@@ -1,5 +1,5 @@
 # Set SSDC_USERNAME and SSDC_PASSWORD as github secrets
-# Currently doesn't seem to work because of reCAPTCHA IP block
+# Currently doesn't seem to work because of reCAPTCHA IP block: Useful as example
 name: Grab SSDC Login
 on:
   workflow_dispatch:

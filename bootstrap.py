@@ -19,6 +19,7 @@ def _get_core_repository(path: pathlib.Path) -> None:
 
 
 if __name__ == '__main__':
+    subprocess.run('sudo apt update'.split())
     p = subprocess.run('sudo apt install -y git wget bash-completion python3-venv'.split())
 
     path = pathlib.Path(os.path.expanduser('~'))

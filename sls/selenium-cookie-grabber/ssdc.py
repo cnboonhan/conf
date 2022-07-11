@@ -5,6 +5,9 @@ import os
 
 
 def handler(event=None, context=None):
+    username = os.environ["SSDC_USERNAME"]
+    password = os.environ["SSDC_PASSWORD"]
+
     options = webdriver.ChromeOptions()
     options.binary_location = '/opt/chrome/chrome'
     options.add_argument('--headless')
@@ -21,6 +24,14 @@ def handler(event=None, context=None):
     options.add_argument("--remote-debugging-port=9222")
     chrome = webdriver.Chrome("/opt/chromedriver",
                               options=options)
+    chrome.get("https://www.ssdcl.com.sg/User/Login")
 
-    chrome.get("https://example.com/")
-    return chrome.find_element(by=By.XPATH, value="//html").text
+    user_elem = chrome.find_element("id", "UserName")
+    pass_elem = chrome.find_element("id", "Password")
+    user_elem.send_keys(username)
+    pass_elem.send_keys(password)
+    chrome.find_element("xpath", "//button[@type='submit']").click()
+
+    cookies = chrome.get_cookies()
+
+    return str(cookies)

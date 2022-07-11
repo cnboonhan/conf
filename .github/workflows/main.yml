@@ -84,3 +84,9 @@ jobs:
           source "$HOME/.conf/.venv/bin/activate"
           cd "$HOME/.conf" && python3 -m scripts.installation.webdriver.install-webdriver
           deactivate
+
+      - name: Install Chrome
+        run: |
+          source "$HOME/.conf/.venv/bin/activate"
+          cd "$HOME/.conf" && python3 -m scripts.installation.webdriver.install-chrome
+          deactivate

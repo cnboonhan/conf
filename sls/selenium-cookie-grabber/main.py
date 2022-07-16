@@ -3,10 +3,33 @@ from tempfile import mkdtemp
 from selenium.webdriver.common.by import By
 import os
 
+class SeleniumCookieGrabberCommands:
+    def __init__(self, driver):
+        self.driver = driver
+        self.valid = ['ssdc']
+
+    def run(self, exec_script: str):
+        if exec_script not in self.valid:
+            return f"Valid values for exec_script: {self.valid}"
+
+        if exec_script == 'ssdc':
+            username = os.environ["SSDC_USERNAME"]
+            password = os.environ["SSDC_PASSWORD"]
+            self.driver.get("https://www.ssdcl.com.sg/User/Login")
+            user_elem = self.driver.find_element("id", "UserName")
+            pass_elem = self.driver.find_element("id", "Password")
+            user_elem.send_keys(username)
+            pass_elem.send_keys(password)
+            self.driver.find_element("xpath", "//button[@type='submit']").click()
+            return self.driver.get_cookies()
+
+        raise ValueError("This shouldn't happen: Check that valid input list is correct.")
 
 def handler(event=None, context=None):
-    username = os.environ["SSDC_USERNAME"]
-    password = os.environ["SSDC_PASSWORD"]
+    try:
+        exec_script = event['exec_script']
+    except KeyError:
+        return 'sls invoke --function main -r ap-southeast-1 --data "{"exec_script": "[script-name]"}"'
 
     options = webdriver.ChromeOptions()
     options.binary_location = '/opt/chrome/chrome'
@@ -24,14 +47,6 @@ def handler(event=None, context=None):
     options.add_argument("--remote-debugging-port=9222")
     chrome = webdriver.Chrome("/opt/chromedriver",
                               options=options)
-    chrome.get("https://www.ssdcl.com.sg/User/Login")
 
-    user_elem = chrome.find_element("id", "UserName")
-    pass_elem = chrome.find_element("id", "Password")
-    user_elem.send_keys(username)
-    pass_elem.send_keys(password)
-    chrome.find_element("xpath", "//button[@type='submit']").click()
-
-    cookies = chrome.get_cookies()
-
-    return str(cookies)
+    grabber = SeleniumCookieGrabberCommands(chrome)
+    return str(grabber.run(exec_script))

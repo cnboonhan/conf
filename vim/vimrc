@@ -1,0 +1,56 @@
+set expandtab
+set mouse=a
+set signcolumn=yes
+set updatetime=250
+set timeoutlen=250
+set completeopt=menuone,noselect
+set termguicolors
+set foldmethod=indent
+set foldlevelstart=99
+set foldnestmax=2
+set foldminlines=0
+set splitright
+
+let prevtermid = 1
+let termid = 1
+
+inoremap <Esc> <C-\><C-n>
+tnoremap <Esc> <C-\><C-n>
+execute "set <M-t>=\et"
+nnoremap <M-t> <C-w>:let prevtermid = prevtermid + 1 \| :let termid = prevtermid \| :vert term<CR>
+execute "set <M-m>=\em"
+nnoremap <M-m> <Esc>:let termid = bufnr('%')<CR>
+execute "set <M-w>=\ew"
+nnoremap <M-n> <Esc>:tabnew<CR>
+execute "set <M-w>=\ew"
+nnoremap <M-w> <Esc>:q!<CR>
+execute "set <M-d>=\ed"
+vnoremap <M-d> "_d
+nnoremap <M-d> "_dd
+execute "set <M-j>=\ej"
+nnoremap <M-j> <C-w>j
+execute "set <M-k>=\ek"
+nnoremap <M-k> <C-w>k
+execute "set <M-h>=\eh"
+nnoremap <M-h> <C-w>h
+execute "set <M-l>=\el"
+nnoremap <M-l> <C-w>l
+execute "set <M-e>=\ee"
+vnoremap <M-e> :%y \| :call term_sendkeys(g:termid, @")<CR> :execute bufwinnr(g:termid) 'wincmd w'<CR> :normal i<CR> 
+execute "set <M-r>=\er"
+nnoremap <M-r> :call term_sendkeys(g:termid, "!!")<CR> :execute bufwinnr(g:termid) 'wincmd w'<CR> :normal i<CR> 
+execute "set <M-1>=\e1"
+nnoremap <M-1> 1gt
+tnoremap <M-1> <C-\\><C-n>1gt
+execute "set <M-2>=\e2"
+nnoremap <M-2> 2gt
+tnoremap <M-2> <C-\\><C-n>2gt
+execute "set <M-3>=\e3"
+nnoremap <M-3> 3gt
+tnoremap <M-3> <C-\\><C-n>3gt
+execute "set <M-q>=\eq"
+nnoremap <M-q> <CMD>Vex<CR>
+nnoremap <F1> <CMD>diffget LOCAL<CR>
+nnoremap <F2> <CMD>diffget BASE<CR>
+nnoremap <F3> <CMD>diffget REMOTE<CR>
+nnoremap <F4> :%s/<c-r>+/<c-r>+/gc<c-f>$F/i

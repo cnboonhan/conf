@@ -1,0 +1,19 @@
+diff --git a/Containerfile b/Containerfile
+index bed2191..33eee45 100644
+--- a/Containerfile
++++ b/Containerfile
+@@ -16,12 +16,12 @@ RUN apt update && apt install -y \
+ 	shellcheck ripgrep python3 python3-pip build-essential jq
+ RUN ssh-keygen -b 2048 -t rsa -f /root/.ssh/id_rsa -q -N "" && mkdir /run/sshd
+ 
+-RUN curl -L "https://go.dev/dl/$(curl -s "https://go.dev/dl/?mode=json" | jq -r '.[0].version').linux-amd64.tar.gz" --output /root/go.tar.gz && \
++RUN curl -L "https://go.dev/dl/$(curl -s "https://go.dev/dl/?mode=json" | jq -r '.[0].version').linux-arm64.tar.gz" --output /root/go.tar.gz && \
+     tar -xf /root/go.tar.gz -C /root && rm /root/go.tar.gz
+ 
+ RUN curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh -o /tmp/get-nvm.bash
+ RUN bash /tmp/get-nvm.bash && /bin/bash -c ". /root/.nvm/nvm.sh && nvm install --lts && nvm use --lts"
+-RUN curl -L --output nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim.appimage && \
++RUN curl -L --output nvim.appimage https://github.com/matsuu/neovim-aarch64-appimage/releases/download/v0.9.4/nvim-v0.9.4-aarch64.appimage && \
+     chmod u+x nvim.appimage && ./nvim.appimage --appimage-extract && rm nvim.appimage && \
+     mv squashfs-root /opt/nvim && ln -s /opt/nvim/AppRun /usr/bin/nvim && \
+     /bin/bash -c ". /root/.nvm/nvm.sh && nvim +'LspInstall gopls bashls yamlls pyright jsonls' +qa && nvim --headless +UpdateRemotePlugins +qa";

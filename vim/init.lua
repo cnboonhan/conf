@@ -123,7 +123,7 @@ require('lazy').setup({
                     end
                 end,
             })
-            local customToggleTermCommand = os.getenv('NVIM_CUSTOM_TOGGLETERM') or "tgpt -i"
+            local customToggleTermCommand = os.getenv('NVIM_CUSTOM_TOGGLETERM') or "while true; do tgpt -i; done"
             if vim.fn.executable 'tgpt' == 1 then
                 vim.cmd(string.format('2TermExec cmd="%s" open=0', customToggleTermCommand))
                 vim.keymap.set("n", '<A-?>', '<CMD>2ToggleTerm direction=float<CR>',

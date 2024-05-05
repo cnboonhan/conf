@@ -123,9 +123,9 @@ require('lazy').setup({
                     end
                 end,
             })
-            local customToggleTermCommand = os.getenv('NVIM_CUSTOM_TOGGLETERM') or "while true; do tgpt -i; done"
+            local customToggleTermFloatCommand = os.getenv('NVIM_CUSTOM_TOGGLETERM_FLOAT') or "while true; do tgpt -i; done"
             if vim.fn.executable 'tgpt' == 1 then
-                vim.cmd(string.format('2TermExec cmd="%s" open=0', customToggleTermCommand))
+                vim.cmd(string.format('2TermExec cmd="%s" open=0', customToggleTermFloatCommand))
                 vim.keymap.set("n", '<A-?>', '<CMD>2ToggleTerm direction=float<CR>',
                     { desc = "Custom Terminal" })
                 vim.keymap.set("t", '<A-?>', '<Esc><CMD>2ToggleTerm direction=float<CR>',
@@ -139,15 +139,13 @@ require('lazy').setup({
                 { desc = "Terminal" })
             vim.keymap.set("n", '<A-T>', '<CMD>1ToggleTerm direction=vertical<CR>',
                 { desc = "Terminal" })
+            vim.g.customToggleTermECommand = "!!"
             vim.keymap.set("n", '<A-e>', '<Esc><CMD>ToggleTermSendCurrentLine 1<CR>', {})
             vim.keymap.set("v", '<A-e>', '<Esc><CMD>ToggleTermSendVisualLines 1<CR>', {})
-            if vim.loop.os_uname().sysname == 'Windows' or vim.loop.os_uname().sysname == 'Windows_NT' then
-                vim.keymap.set("n", '<A-E>', '<Esc><CMD>1TermExec cmd="Invoke-History"<CR>',
-                    { desc = "Run previous command in terminal" })
-            else
-                vim.keymap.set("n", '<A-E>', '<Esc><CMD>1TermExec cmd="!!"<CR>',
-                    { desc = "Run previous command in terminal" })
+            function dynamicToggleTermExec(e)
+                vim.keymap.set("n", '<A-E>', '<Esc><CMD>1TermExec cmd="' .. e .. '"<CR>', {})
             end
+            vim.keymap.set("n", '<leader>E', '<Esc>:lua dynamicToggleTermExec("!!")', {})
         end
     },
     {

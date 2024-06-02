@@ -77,7 +77,8 @@ require('lazy').setup({
 
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', {})
 vim.keymap.set('n', '<A-w>', '<Esc><CMD>q!<CR>', {})
-vim.keymap.set('n', '<A-t>', '<CMD>tab split<CR>', {})
+vim.keymap.set('n', '<A-t>', '<CMD>vsplit | terminal<CR>', {})
+vim.keymap.set('n', '<A-T>', '<CMD>tab split<CR>', {})
 vim.keymap.set('v', '<A-d>', '"_d', {})
 vim.keymap.set('n', '<A-d>', '"_dd', {})
 vim.keymap.set('n', '<A-j>', '<C-W>j', {})

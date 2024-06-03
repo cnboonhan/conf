@@ -11,6 +11,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 ''' > "$WORKING_PATH/load_nvm.sh"
 source "$WORKING_PATH/load_nvm.sh"
 nvm install --lts
+nvm use --lts
 
 cd "$WORKING_PATH"
 

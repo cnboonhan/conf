@@ -16,7 +16,10 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   {
     'Exafunction/codeium.vim',
-    event = 'BufEnter'
+    event = 'BufEnter',
+    cond = function() 
+      return os.getenv("NVIM_ENABLE_CODEIUM")
+    end
   },
   {
     "nvim-treesitter/nvim-treesitter",

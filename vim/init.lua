@@ -1,3 +1,4 @@
+-- in tmux: set tmux -g window-size largest
 -- Vim Options
 vim.o.smarttab = true
 vim.o.expandtab = true

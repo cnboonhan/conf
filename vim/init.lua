@@ -1,10 +1,10 @@
--- in tmux: set tmux -g window-size largest
 -- Vim Options
 vim.o.smarttab = true
 vim.o.expandtab = true
 vim.o.shiftwidth = 2
 vim.o.undofile = true
 vim.o.ignorecase = true
+vim.o.splitright = true
 
 -- Download Lazy.Nvim if not exists
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'

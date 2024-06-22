@@ -1,4 +1,5 @@
 -- Vim Options
+-- set -g window-size largest
 vim.o.smarttab = true
 vim.o.expandtab = true
 vim.o.shiftwidth = 2

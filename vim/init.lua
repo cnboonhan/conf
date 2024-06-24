@@ -16,11 +16,11 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Load lazy plugins
 require('lazy').setup({
-  {
+    {
     'Exafunction/codeium.vim',
     event = 'BufEnter',
     cond = function() 
-      return os.getenv("NVIM_ENABLE_CODEIUM")
+      return os.getenv("NEOVIM_ENABLE_CODEIUM")
     end
   },
   {
@@ -80,8 +80,24 @@ require('lazy').setup({
   },
   {
       'dhruvasagar/vim-table-mode',
-  }
+  },
+  {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
+  {'neovim/nvim-lspconfig'},
+  {'hrsh7th/cmp-nvim-lsp'},
+  {'hrsh7th/nvim-cmp'},
+  {'L3MON4D3/LuaSnip'}
 })
+
+if os.getenv("NEOVIM_ENABLE_LSP") then
+  -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+  -- https://lsp-zero.netlify.app/v3.x/language-server-configuration.html
+  local lsp_zero = require('lsp-zero')
+  lsp_zero.on_attach(function(client, bufnr)
+    lsp_zero.default_keymaps({buffer = bufnr})
+  end)
+    require'lspconfig'.bashls.setup{}
+    require'lspconfig'.pyright.setup{}
+end
 
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', {})
 vim.keymap.set('n', '<A-w>', '<Esc><CMD>q!<CR>', {})
@@ -92,6 +108,7 @@ vim.keymap.set('n', '<A-d>', '"_dd', {})
 vim.keymap.set('n', '<A-j>', '<C-W>j', {})
 vim.keymap.set('n', '<A-k>', '<C-W>k', {})
 vim.keymap.set('n', '<A-h>', '<C-W>h', {})
+vim.keymap.set('n', '<A-l>', '<C-W>l', {})
 vim.keymap.set('n', '<A-l>', '<C-W>l', {})
 vim.keymap.set('t', '<A-j>', '<C-\\><C-n><C-w>j', {})
 vim.keymap.set('t', '<A-k>', '<C-\\><C-n><C-w>k', {})

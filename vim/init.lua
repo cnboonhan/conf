@@ -1,6 +1,7 @@
 -- Vim Options
 -- set -g window-size largest
 vim.o.smarttab = true
+vim.o.mouse = ""
 vim.o.expandtab = true
 vim.o.shiftwidth = 2
 vim.o.undofile = true
@@ -90,7 +91,7 @@ require('lazy').setup({
 
 if os.getenv("NEOVIM_ENABLE_LSP") then
   -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-  -- https://lsp-zero.netlify.app/v3.x/language-server-configuration.html
+  -- https://lsp-zero.netlify.app/v2.x/language-server-configuration.html
   local lsp_zero = require('lsp-zero')
   lsp_zero.on_attach(function(client, bufnr)
     lsp_zero.default_keymaps({buffer = bufnr})

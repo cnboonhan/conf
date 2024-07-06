@@ -21,15 +21,8 @@
       loop:
         - bash-language-server
         - yaml-language-server
-      become: true
-
-    - name: Install Required Python Packages
-      ansible.builtin.pip:
-        name: "{{ item }}"
-        extra_args: --user
-        break_system_packages: true
-      loop:
         - pyright
+      become: true
 
     - name: Create folder path for nvim configs
       ansible.builtin.file:

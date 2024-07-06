@@ -21,6 +21,7 @@
       loop:
         - bash-language-server
         - yaml-language-server
+      become: true
 
     - name: Install Required Python Packages
       ansible.builtin.pip:

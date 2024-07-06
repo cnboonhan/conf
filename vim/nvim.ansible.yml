@@ -2,6 +2,9 @@
 - name: Install Neovim
   hosts: localhost
   tasks:
+    - name: Install community.general collection
+      command: ansible-galaxy collection install community.general
+
     - name: Install Required Packages
       ansible.builtin.dnf:
         name: "{{ item }}"

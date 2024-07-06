@@ -98,6 +98,7 @@ if os.getenv("NEOVIM_ENABLE_LSP") then
   end)
     require'lspconfig'.bashls.setup{}
     require'lspconfig'.pyright.setup{}
+    require'lspconfig'.yamlls.setup{}
 end
 
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', {})

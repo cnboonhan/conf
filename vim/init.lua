@@ -80,9 +80,25 @@ require('lazy').setup({
       end
   },
   {
+    'VonHeikemen/lsp-zero.nvim', branch = 'v3.x',
+    config = function() 
+      local cmp = require('cmp')
+      local cmp_action = require('lsp-zero').cmp_action()
+      cmp.setup({
+        mapping = cmp.mapping.preset.insert({
+          ['<CR>'] = cmp.mapping.confirm({select = false}),
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+          ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+          ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-d>'] = cmp.mapping.scroll_docs(4),
+        }),
+})
+    end
+  },
+  {
       'dhruvasagar/vim-table-mode',
   },
-  {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
   {'neovim/nvim-lspconfig'},
   {'hrsh7th/cmp-nvim-lsp'},
   {'hrsh7th/nvim-cmp'},

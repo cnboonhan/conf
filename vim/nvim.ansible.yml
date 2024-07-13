@@ -22,6 +22,7 @@
         - bash-language-server
         - yaml-language-server
         - pyright
+        - tldr
       become: true
 
     - name: Create folder path for nvim configs

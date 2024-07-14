@@ -118,6 +118,8 @@ if os.getenv("NEOVIM_ENABLE_LSP") then
 end
 
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', {})
+vim.keymap.set('t', 'y', '"+y', {})
+vim.keymap.set('v', 'y', '"+y', {})
 vim.keymap.set('n', '<A-w>', '<Esc><CMD>q!<CR>', {})
 vim.keymap.set('n', '<A-t>', '<CMD>vsplit | terminal<CR>', {})
 vim.keymap.set('n', '<A-T>', '<CMD>tab split<CR>', {})

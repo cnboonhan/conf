@@ -9,17 +9,5 @@
 	autoSetupRemote = true
 	default = current
 
-[merge]
-    conflictstyle = diff3
-    tool = nvimdiff
-
-[diff]
-    colorMoved = default
-    tool =  nvimdiff
-
-[credential "https://github.com"]
-	helper = !/usr/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-	helper = !/usr/bin/gh auth git-credential
 [pull]
 	rebase = false

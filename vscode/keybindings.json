@@ -1,0 +1,73 @@
+[
+    {
+        "key": "ctrl-k",
+        "command": "editor.action.peekDefinition"
+    },
+    {
+        "key": "alt+n",
+        "command": "workbench.action.files.newUntitledFile"
+    },
+    {
+        "key": "alt+w",
+        "command": "workbench.action.closeActiveEditor"
+    },
+    {
+        "key": "alt+h",
+        "command": "workbench.action.navigateLeft"
+    },
+    {
+        "key": "alt+l",
+        "command": "workbench.action.navigateRight"
+    },
+    {
+        "key": "alt+k",
+        "command": "workbench.action.navigateUp"
+    },
+    {
+        "key": "alt+j",
+        "command": "workbench.action.navigateDown"
+    },
+    {
+        "key": "alt+t",
+        "command": "workbench.action.terminal.toggleTerminal"
+    },
+    {
+        "key": "alt+p",
+        "command": "workbench.action.quickOpen"
+    },
+    {
+        "key": "alt+f",
+        "command": "actions.find"
+    },
+    {
+        "key": "alt+g",
+        "command": "workbench.action.findInFiles"
+    },
+    {
+        "key": "alt+r",
+        "command": "workbench.action.terminal.runRecentCommand",
+    },
+    {
+        "key": "alt+e",
+        "command": "workbench.action.terminal.runSelectedText",
+        "when": "editorTextFocus && editorHasSelection"
+    },
+    {
+        "key": "alt+q",
+        "command": "workbench.action.closeSidebar",
+        "when": "explorerViewletVisible"
+    },
+    {
+        "key": "alt+q",
+        "command": "workbench.view.explorer",
+        "when": "!explorerViewletVisible"
+    },
+    {
+        "key": "alt+d",
+        "command": "editor.action.deleteLines"
+    },
+    {
+        "key": "alt+z",
+        "command": "workbench.action.toggleMaximizeEditorGroup"
+    }
+]

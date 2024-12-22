@@ -14,7 +14,9 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/p
 
 RUN sudo apt update && sudo apt upgrade -y
 
-RUN sudo apt install ros-jazzy-desktop -y
+RUN sudo apt install ros-jazzy-desktop ros-dev-tools -y
 RUN sudo apt install gz-ionic -y
 
 RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
+
+CMD ["sleep", "infinity"]

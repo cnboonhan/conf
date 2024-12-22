@@ -19,4 +19,9 @@ RUN sudo apt install gz-ionic -y
 
 RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 
+ENV __NV_PRIME_RENDER_OFFLOAD=1
+ENV __GLX_VENDOR_LIBRARY_NAME=nvidia
+ENV NVIDIA_VISIBLE_DEVICES=all
+ENV NVIDIA_DRIVER_CAPABILITIES=all
+
 CMD ["sleep", "infinity"]

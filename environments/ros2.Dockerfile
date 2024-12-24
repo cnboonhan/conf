@@ -12,6 +12,6 @@ RUN sudo apt update && sudo apt upgrade -y
 
 RUN sudo apt install ros-jazzy-desktop ros-dev-tools -y
 
-RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
+RUN echo "source /opt/ros/jazzy/setup.bash" >> /etc/bash.bashrc
 
 CMD ["sleep", "infinity"]

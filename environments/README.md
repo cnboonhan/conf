@@ -1,5 +1,10 @@
 # environments
 
+## Run
+```
+docker exec -it [container_name] /bin/bash -l
+```
+
 ## Build
 ```
 # Vim

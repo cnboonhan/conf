@@ -2,7 +2,8 @@
 
 ## Run
 ```
-docker exec -it [container_name] /bin/bash -l
+CONTAINER_NAME=[container_name]
+docker exec -it $CONTAINER_NAME /bin/bash -l
 ```
 
 ## Build

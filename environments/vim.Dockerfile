@@ -1,6 +1,6 @@
 FROM ubuntu:24.04
 
-RUN apt update && apt install curl git sudo cmake wget build-essential fzf gh -y
+RUN apt update && apt install curl git sudo cmake wget build-essential fzf gh ripgrep -y
 
 ENV NVM_DIR=/root/.nvm
 ENV NODE_VERSION=20.12.0

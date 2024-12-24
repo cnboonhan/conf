@@ -74,7 +74,7 @@ require("lazy").setup({{
             desc = 'Resume previous Telescope'
         })
     end
-}, {'dhruvasagar/vim-table-mode'}, {
+}, {
     "yetone/avante.nvim",
     event = "VeryLazy",
     lazy = false,
@@ -119,7 +119,7 @@ require("lazy").setup({{
         config = function()
             require("copilot").setup({})
         end
-    }}
+    }, {"tpope/vim-fugitive"}}
 }})
 
 vim.cmd.colorscheme("tokyonight")

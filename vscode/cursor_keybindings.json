@@ -25,7 +25,15 @@
         "command": "workbench.action.navigateUp"
     },
     {
-        "key": "alt+j",
-        "command": "workbench.action.navigateDown"
+        "key": "ctrl-i",
+        "command": "workbench.action.navigateForward",
+    },
+    {
+        "key": "ctrl-o",
+        "command": "workbench.action.navigateBack",
+    },
+    {
+        "key": "alt-i",
+        "command": "composer.startComposerPrompt",
     }
 ]

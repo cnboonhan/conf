@@ -81,7 +81,12 @@ require("lazy").setup(
                 require("telescope").setup {
                     pickers = {
                         find_files = {
-                            hidden = true
+                            hidden = true,
+                            file_ignore_patterns = {
+                                "node_modules",
+                                "venv",
+                                ".git",
+                            }
                         }
                     }
                 }
@@ -129,12 +134,8 @@ require("lazy").setup(
                 "stevearc/dressing.nvim",
                 "nvim-lua/plenary.nvim",
                 "MunifTanjim/nui.nvim",
-                --- The below dependencies are optional,
-                "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-                "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-                "zbirenbaum/copilot.lua", -- for providers='copilot'
+                "nvim-tree/nvim-web-devicons",
                 {
-                    -- support for image pasting
                     "HakonHarnes/img-clip.nvim",
                     event = "VeryLazy",
                     opts = {
@@ -163,9 +164,109 @@ require("lazy").setup(
                         require("copilot").setup({})
                     end
                 },
-		{'akinsho/toggleterm.nvim', version = "*", config = true, shell = bash},
-                {"tpope/vim-fugitive"}
             }
+        },
+        {
+            'akinsho/toggleterm.nvim', version = "*", config = function()
+            require("toggleterm").setup({
+                shell = "/bin/bash",
+                vim.keymap.set({'n', 't'}, '<leader>`', '<CMD>ToggleTerm<CR>', {}),
+                vim.keymap.set('v', '<leader>e', '<CMD>ToggleTermSendVisualSelection<CR>', {})
+            })
+            end
+        },
+        {
+            "tpope/vim-fugitive"
+        },
+        {
+            "williamboman/mason.nvim",
+            dependencies = {
+                "williamboman/mason-lspconfig.nvim",
+                "neovim/nvim-lspconfig",
+            },
+            config = function()
+                require("mason").setup()
+                require("mason-lspconfig").setup({
+                    ensure_installed = {
+                        "pyright"
+                    },
+                })
+
+                -- LSP settings
+                local lspconfig = require('lspconfig')
+                local on_attach = function(_, bufnr)
+                    local opts = { buffer = bufnr }
+                    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+                    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+                    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+                    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+                    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+                    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+                    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+                    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+                end
+
+                -- Configure each language server
+                lspconfig.pyright.setup({
+                    on_attach = on_attach,
+                    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                })
+            end
+        },
+        {
+            'hrsh7th/nvim-cmp',
+            dependencies = {
+                'hrsh7th/cmp-nvim-lsp',
+                'L3MON4D3/LuaSnip',
+                'saadparwaiz1/cmp_luasnip',
+                'hrsh7th/cmp-buffer',
+                'hrsh7th/cmp-path',
+            },
+            config = function()
+                local cmp = require('cmp')
+                local luasnip = require('luasnip')
+
+                cmp.setup({
+                    snippet = {
+                        expand = function(args)
+                            luasnip.lsp_expand(args.body)
+                        end,
+                    },
+                    mapping = cmp.mapping.preset.insert({
+                        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+                        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                        ['<C-Space>'] = cmp.mapping.complete(),
+                        ['<CR>'] = cmp.mapping.confirm {
+                            behavior = cmp.ConfirmBehavior.Replace,
+                            select = true,
+                        },
+                        ['<Tab>'] = cmp.mapping(function(fallback)
+                            if cmp.visible() then
+                                cmp.select_next_item()
+                            elseif luasnip.expand_or_jumpable() then
+                                luasnip.expand_or_jump()
+                            else
+                                fallback()
+                            end
+                        end, { 'i', 's' }),
+                        ['<S-Tab>'] = cmp.mapping(function(fallback)
+                            if cmp.visible() then
+                                cmp.select_prev_item()
+                            elseif luasnip.jumpable(-1) then
+                                luasnip.jump(-1)
+                            else
+                                fallback()
+                            end
+                        end, { 'i', 's' }),
+                    }),
+                    sources = {
+                        { name = 'nvim_lsp' },
+                        { name = 'luasnip' },
+                        { name = 'buffer' },
+                        { name = 'path' },
+                    },
+                })
+            end
         }
     }
 )
@@ -190,5 +291,3 @@ vim.keymap.set('t', '<A-1>', '<C-\\><C-n>1gt', {})
 vim.keymap.set('t', '<A-2>', '<C-\\><C-n>2gt', {})
 vim.keymap.set('t', '<A-3>', '<C-\\><C-n>3gt', {})
 vim.keymap.set('n', '<A-t>', '<CMD>tab split<CR>', {})
-vim.keymap.set('n', '<C-`>', '<CMD>ToggleTerm<CR>', {})
-vim.keymap.set('v', '<A-e>', '<CMD>ToggleTermSendVisualSelection<CR>', {})

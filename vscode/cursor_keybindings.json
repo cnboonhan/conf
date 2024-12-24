@@ -37,11 +37,11 @@
         "command": "composer.startComposerPrompt",
     },
     {
-        "key": "shift+alt+m",
+        "key": "alt+m",
         "command": "editor.action.enableCppGlobally"
     },
     {
-        "key": "alt+m",
+        "key": "alt+shift+m",
         "command": "editor.cpp.disableenabled"
     }
 ]

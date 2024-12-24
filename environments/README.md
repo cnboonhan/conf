@@ -1,5 +1,12 @@
 # environments
 
+## Pre-Requirements
+
+```
+curl -fsSL https://test.docker.com -o test-docker.sh | sh
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+```
+
 ## Run
 ```
 CONTAINER_NAME=[container_name]

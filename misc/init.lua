@@ -291,3 +291,4 @@ vim.keymap.set('t', '<A-1>', '<C-\\><C-n>1gt', {})
 vim.keymap.set('t', '<A-2>', '<C-\\><C-n>2gt', {})
 vim.keymap.set('t', '<A-3>', '<C-\\><C-n>3gt', {})
 vim.keymap.set('n', '<A-t>', '<CMD>tab split<CR>', {})
+vim.opt.signcolumn = "yes"

@@ -5,6 +5,7 @@
 ```
 curl -fsSL https://test.docker.com -o test-docker.sh | sh
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+curl -L https://downloader.cursor.sh/linux/appImage/x64 -o /opt/cursor.appimage
 ```
 
 ## Run

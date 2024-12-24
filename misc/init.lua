@@ -129,10 +129,12 @@ require("lazy").setup(
                 "stevearc/dressing.nvim",
                 "nvim-lua/plenary.nvim",
                 "MunifTanjim/nui.nvim",
-                "hrsh7th/nvim-cmp",
-                "nvim-tree/nvim-web-devicons",
-                "zbirenbaum/copilot.lua",
+                --- The below dependencies are optional,
+                "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+                "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+                "zbirenbaum/copilot.lua", -- for providers='copilot'
                 {
+                    -- support for image pasting
                     "HakonHarnes/img-clip.nvim",
                     event = "VeryLazy",
                     opts = {
@@ -189,4 +191,4 @@ vim.keymap.set('t', '<A-2>', '<C-\\><C-n>2gt', {})
 vim.keymap.set('t', '<A-3>', '<C-\\><C-n>3gt', {})
 vim.keymap.set('n', '<A-t>', '<CMD>tab split<CR>', {})
 vim.keymap.set('n', '<C-`>', '<CMD>ToggleTerm<CR>', {})
-vim.keymap.set('n', '<A-e>', '<CMD>ToggleTermSendVisualSelection<CR>', {})
+vim.keymap.set('n', '<A-e>', '<CMD>ToggleTermSendVisualLines<CR>', {})

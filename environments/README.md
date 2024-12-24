@@ -12,6 +12,7 @@ curl -L https://downloader.cursor.sh/linux/appImage/x64 -o /opt/cursor.appimage
 ```
 CONTAINER_NAME=[container_name]
 docker exec -it $CONTAINER_NAME /bin/bash -l
+docker exec -u root -it $CONTAINER_NAME /bin/bash -l
 ```
 
 ## Build

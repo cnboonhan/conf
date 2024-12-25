@@ -129,16 +129,6 @@ require("lazy").setup(
                     auto_suggestions = true
                 }
             },
-            config = function()
-                local avante = require("avante")
-                avante.setup({
-                    provider = "copilot",
-                    auto_suggestions_provider = "copilot",
-                    behaviour = {
-                        auto_suggestions = true
-                    }
-                })
-            end,
             build = "make",
             dependencies = {
                 "stevearc/dressing.nvim",

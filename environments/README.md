@@ -51,7 +51,6 @@ docker run --name ros2 -d --network=host --user $(id -u):$(id -g) \
     ros2:latest
 
 # Gazebo
-xhost +
 docker container rm gazebo --force
 docker run --name gazebo -d --network=host --user $(id -u):$(id -g) \
     --gpus all \

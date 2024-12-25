@@ -183,6 +183,9 @@ require("lazy").setup(
             "tpope/vim-fugitive"
         },
         {
+            "dhruvasagar/vim-table-mode"
+        },
+        {
             "stevearc/conform.nvim",
             opts = {},
             config = function()

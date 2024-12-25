@@ -2,21 +2,22 @@
 
 ## Pre-Requirements
 
-```
+```bash
 curl -fsSL https://test.docker.com -o test-docker.sh | sh
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 curl -L https://downloader.cursor.sh/linux/appImage/x64 -o /opt/cursor.appimage
 ```
 
 ## Run
-```
+```bash
 CONTAINER_NAME=[container_name]
+xhost +
 docker exec -it $CONTAINER_NAME /bin/bash -l
 docker exec -u root -it $CONTAINER_NAME /bin/bash -l
 ```
 
 ## Build
-```
+```bash
 # Vim
 docker build -t vim:latest -f vim.Dockerfile .
 
@@ -32,12 +33,12 @@ docker build -t gazebo:latest -f gazebo.Dockerfile .
 ```
 
 ## Run
-```
+```bash
 # Vim
 docker container rm vim --force
 docker run --name vim -d --network=host --user $(id -u):$(id -g) \
     -v "/etc/group:/etc/group:ro" -v "/etc/passwd:/etc/passwd:ro" -v /home:/home \
-    -e "OPENAI_API_KEY=$OPENAI_API_KEY" \
+    --env="DISPLAY=$DISPLAY" \
     vim:latest
 
 # ROS2

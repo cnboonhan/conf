@@ -129,6 +129,16 @@ require("lazy").setup(
                     auto_suggestions = true
                 }
             },
+            config = function()
+                local avante = require("avante")
+                avante.setup({
+                    provider = "copilot",
+                    auto_suggestions_provider = "copilot",
+                    behaviour = {
+                        auto_suggestions = true
+                    }
+                })
+            end,
             build = "make",
             dependencies = {
                 "stevearc/dressing.nvim",
@@ -292,3 +302,5 @@ vim.keymap.set('t', '<A-2>', '<C-\\><C-n>2gt', {})
 vim.keymap.set('t', '<A-3>', '<C-\\><C-n>3gt', {})
 vim.keymap.set('n', '<A-t>', '<CMD>tab split<CR>', {})
 vim.opt.signcolumn = "yes"
+vim.opt.clipboard = "unnamedplus"
+vim.opt.foldmethod = "indent"

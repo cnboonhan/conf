@@ -126,7 +126,7 @@ require("lazy").setup(
                 provider = "copilot",
                 auto_suggestions_provider = "copilot",
                 behaviour = {
-                    auto_suggestions = true
+                    auto_suggestions = false
                 }
             },
             build = "make",

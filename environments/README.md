@@ -11,7 +11,8 @@ curl -L https://downloader.cursor.sh/linux/appImage/x64 -o /opt/cursor.appimage
 
 ## Run
 ```bash
-CONTAINER_NAME=[container_name]
+export CONTAINER_NAME=[container_name]
+export BASE_IMAGE=${BASE_IMAGE:-ubuntu:24.04}
 xhost +
 docker exec -it $CONTAINER_NAME /bin/bash -l
 docker exec -u root -it $CONTAINER_NAME /bin/bash -l
@@ -20,16 +21,16 @@ docker exec -u root -it $CONTAINER_NAME /bin/bash -l
 ## Build
 ```bash
 # Vim
-docker build -t vim:latest -f vim.Dockerfile .
+docker build --build-arg "BASE_IMAGE=$BASE_IMAGE" -t vim:latest -f vim.Dockerfile .
 
 # ROS2
-docker build -t ros2:latest -f ros2.Dockerfile .
+docker build --build-arg "BASE_IMAGE=$BASE_IMAGE" -t ros2:latest -f ros2.Dockerfile .
 
 # Gazebo
 ## Install docker and nvidia container toolkit: https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#installing-with-apt
 sudo nvidia-ctk runtime configure --runtime=docker
 sudo systemctl restart docker
-docker build -t gazebo:latest -f gazebo.Dockerfile .
+docker build --build-arg "BASE_IMAGE=$BASE_IMAGE" -t gazebo:latest -f gazebo.Dockerfile .
 
 ```
 
@@ -46,6 +47,7 @@ docker run --name vim -d --network=host --user $(id -u):$(id -g) \
 docker container rm ros2 --force
 docker run --name ros2 -d --network=host --user $(id -u):$(id -g) \
     -v "/etc/group:/etc/group:ro" -v "/etc/passwd:/etc/passwd:ro" -v /home:/home \
+    --env="DISPLAY=$DISPLAY" \
     ros2:latest
 
 # Gazebo

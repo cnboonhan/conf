@@ -1,4 +1,5 @@
-FROM ubuntu:24.04
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
 
 RUN apt update && apt install curl git sudo wget -y
 RUN sudo apt install software-properties-common  -y

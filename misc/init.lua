@@ -332,3 +332,4 @@ vim.keymap.set("n", "<A-t>", "<CMD>tab split<CR>", {})
 vim.opt.signcolumn = "yes"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.foldmethod = "indent"
+vim.opt.foldlevelstart = 99

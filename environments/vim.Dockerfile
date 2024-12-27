@@ -25,4 +25,4 @@ RUN rm nvim-linux64.tar.gz
 # ENV XDG_DATA_HOME=/root/.local/share
 RUN chmod -R o+rwx /root
 
-CMD ["ttyd", "-p", "8195", "--writable", "bash"]
+CMD ["ttyd", "-p", "8195", "-i", "127.0.0.1", "--writable", "bash"]

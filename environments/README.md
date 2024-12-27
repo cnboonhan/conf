@@ -42,6 +42,7 @@ docker build --build-arg "BASE_IMAGE=$BASE_IMAGE" -t gazebo:latest -f gazebo.Doc
 # Vim
 docker container rm vim --force
 docker run --name vim -d --network=host --user $(id -u):$(id -g) \
+    --gpus all \
     -v "/etc/group:/etc/group:ro" -v "/etc/passwd:/etc/passwd:ro" -v /home/$USER:/home/$USER \
     --env="DISPLAY=$DISPLAY" \
     vim:latest
@@ -49,6 +50,7 @@ docker run --name vim -d --network=host --user $(id -u):$(id -g) \
 # ROS2
 docker container rm ros2 --force
 docker run --name ros2 -d --network=host --user $(id -u):$(id -g) \
+    --gpus all \
     -v "/etc/group:/etc/group:ro" -v "/etc/passwd:/etc/passwd:ro" -v /home/$USER:/home/$USER \
     --env="DISPLAY=$DISPLAY" \
     ros2:latest

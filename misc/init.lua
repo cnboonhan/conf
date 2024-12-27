@@ -309,6 +309,14 @@ require("lazy").setup(
     }
 )
 
+function toggle_signcolumn()
+    if vim.wo.signcolumn == "yes" then
+        vim.wo.signcolumn = "no"
+    else
+        vim.wo.signcolumn = "yes"
+    end
+end
+
 vim.cmd.colorscheme("tokyonight")
 vim.keymap.set("n", "<A-j>", "<C-W>j", {})
 vim.keymap.set("n", "<A-k>", "<C-W>k", {})
@@ -329,15 +337,8 @@ vim.keymap.set("t", "<A-1>", "<C-\\><C-n>1gt", {})
 vim.keymap.set("t", "<A-2>", "<C-\\><C-n>2gt", {})
 vim.keymap.set("t", "<A-3>", "<C-\\><C-n>3gt", {})
 vim.keymap.set("n", "<A-t>", "<CMD>tab split<CR>", {})
+vim.keymap.set("n", "<leader>q", ":noh<CR>:lua toggle_signcolumn()<CR>", {})
 vim.opt.signcolumn = "yes"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.foldmethod = "indent"
 vim.opt.foldlevelstart = 99
-
-local function toggle_signcolumn()
-    if vim.wo.signcolumn == "yes" then
-        vim.wo.signcolumn = "no"
-    else
-        vim.wo.signcolumn = "yes"
-    end
-vim.keymap.set("n", "<leader>q", "<CMD>toggle_signcolumn()<CR>", {})

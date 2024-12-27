@@ -14,7 +14,10 @@ curl -L https://downloader.cursor.sh/linux/appImage/x64 -o /opt/cursor.appimage
 export CONTAINER_NAME=[container_name]
 export BASE_IMAGE=${BASE_IMAGE:-ubuntu:24.04}
 xhost +
+
+# also has a ttyd on port 8195
 docker exec -it $CONTAINER_NAME /bin/bash -l
+# sudo
 docker exec -u root -it $CONTAINER_NAME /bin/bash -l
 ```
 

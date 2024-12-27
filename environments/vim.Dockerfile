@@ -1,7 +1,7 @@
 ARG BASE_IMAGE=ubuntu:24.04
 FROM ${BASE_IMAGE}
 
-RUN apt update && apt install curl git sudo cmake wget build-essential black fzf gh ripgrep xclip unzip -y
+RUN apt update && apt install curl git sudo cmake wget build-essential black fzf gh ripgrep xclip unzip tmux ttyd -y
 
 ENV NVM_DIR=/root/.nvm
 ENV NODE_VERSION=20.12.0
@@ -25,4 +25,4 @@ RUN rm nvim-linux64.tar.gz
 # ENV XDG_DATA_HOME=/root/.local/share
 RUN chmod -R o+rwx /root
 
-CMD ["sleep", "infinity"]
+CMD ["ttyd", "-p", "8195", "--writable", "bash"]

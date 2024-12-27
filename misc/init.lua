@@ -338,6 +338,9 @@ vim.keymap.set("t", "<A-2>", "<C-\\><C-n>2gt", {})
 vim.keymap.set("t", "<A-3>", "<C-\\><C-n>3gt", {})
 vim.keymap.set("n", "<A-t>", "<CMD>tab split<CR>", {})
 vim.keymap.set("n", "<leader>q", ":noh<CR>:lua toggle_signcolumn()<CR>", {})
+vim.keymap.set('n', '<A-[>', '<CMD>diffget LOCAL<CR>', {})
+vim.keymap.set('n', '<A-]>', '<CMD>diffget BASE<CR>', {})
+vim.keymap.set('n', '<A-\\>', '<CMD>diffget REMOTE<CR>', {})
 vim.opt.signcolumn = "yes"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.foldmethod = "indent"

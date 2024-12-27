@@ -333,3 +333,11 @@ vim.opt.signcolumn = "yes"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.foldmethod = "indent"
 vim.opt.foldlevelstart = 99
+
+local function toggle_signcolumn()
+    if vim.wo.signcolumn == "yes" then
+        vim.wo.signcolumn = "no"
+    else
+        vim.wo.signcolumn = "yes"
+    end
+vim.keymap.set("n", "<leader>q", "<CMD>toggle_signcolumn()<CR>", {})

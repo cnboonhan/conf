@@ -345,3 +345,5 @@ vim.opt.signcolumn = "yes"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.foldmethod = "indent"
 vim.opt.foldlevelstart = 99
+vim.opt.undofile = true
+vim.opt.undodir = "~/.local/share/nvim/undodir"

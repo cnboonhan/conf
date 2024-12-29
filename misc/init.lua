@@ -323,14 +323,14 @@ end
 
 function toggle_diagnostics()
 	if diagnostics_active then
+		vim.cmd("LspStart")
 		vim.diagnostic.show()
 	else
+		vim.cmd("LspStop")
 		vim.diagnostic.hide()
 	end
 	diagnostics_active = not diagnostics_active
 end
-
-local diagnostics_active = true
 
 vim.cmd.colorscheme("tokyonight")
 vim.keymap.set("n", "<A-j>", "<C-W>j", {})
@@ -360,3 +360,4 @@ vim.opt.signcolumn = "yes"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.foldmethod = "indent"
 vim.opt.foldlevelstart = 99
+vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"

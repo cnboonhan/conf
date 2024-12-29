@@ -18,6 +18,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
+vim.g.mapleader = " "
 require("lazy").setup(
 	{
 		{
@@ -332,7 +333,6 @@ end
 local diagnostics_active = true
 
 vim.cmd.colorscheme("tokyonight")
-vim.g.mapleader = " "
 vim.keymap.set("n", "<A-j>", "<C-W>j", {})
 vim.keymap.set("n", "<A-k>", "<C-W>k", {})
 vim.keymap.set("n", "<A-h>", "<C-W>h", {})

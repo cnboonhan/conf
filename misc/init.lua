@@ -174,8 +174,10 @@ require("lazy").setup(
 					{
 						shell = "/bin/bash",
 						vim.keymap.set({ "n", "t" }, "<leader>`", "<CMD>ToggleTerm<CR>", {}),
-						vim.keymap.set("v", "<leader>e", "<CMD>ToggleTermSendVisualSelection<CR>", {}),
-						vim.keymap.set({ "n", "t" }, "<leader>r", "<CMD>TermExec cmd='!!'<CR>", {})
+						vim.keymap.set("v", "<leader>e", "<CMD>ToggleTermSendVisualSelection<CR>",
+							{}),
+						vim.keymap.set({ "n", "t" }, "<leader>!", "<CMD>TermExec cmd='!!'<CR>",
+							{})
 					}
 				)
 			end
@@ -360,4 +362,5 @@ vim.opt.signcolumn = "yes"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.foldmethod = "indent"
 vim.opt.foldlevelstart = 99
+vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"

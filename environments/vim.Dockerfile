@@ -1,7 +1,7 @@
 ARG BASE_IMAGE=ubuntu:24.04
 FROM ${BASE_IMAGE}
 
-RUN apt update && apt install curl git sudo cmake wget build-essential black fzf gh ripgrep xclip unzip tmux ttyd python3-venv python3-pip graphviz inotify-tools -y
+RUN apt update && apt install curl git sudo cmake wget build-essential black fzf gh ripgrep xclip unzip tmux ttyd python3-venv python3-pip graphviz -y
 
 ENV NVM_DIR=/root/.nvm
 ENV NODE_VERSION=20.12.0

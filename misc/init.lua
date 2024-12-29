@@ -174,8 +174,8 @@ require("lazy").setup(
 					{
 						shell = "/bin/bash",
 						vim.keymap.set({ "n", "t" }, "<leader>`", "<CMD>ToggleTerm<CR>", {}),
-						vim.keymap.set("v", "<leader>e", "<CMD>ToggleTermSendVisualSelection<CR>",
-							{})
+						vim.keymap.set("v", "<leader>e", "<CMD>ToggleTermSendVisualSelection<CR>", {}),
+						vim.keymap.set({ "n", "t" }, "<leader>r", "<CMD>TermExec cmd='!!'<CR>", {})
 					}
 				)
 			end

@@ -309,41 +309,49 @@ require("lazy").setup(
     }
 )
 
-function toggle_signcolumn()
-    if vim.wo.signcolumn == "yes" then
-        vim.wo.signcolumn = "no"
-    else
-        vim.wo.signcolumn = "yes"
-    end
-end
-
-vim.cmd.colorscheme("tokyonight")
-vim.keymap.set("n", "<A-j>", "<C-W>j", {})
-vim.keymap.set("n", "<A-k>", "<C-W>k", {})
-vim.keymap.set("n", "<A-h>", "<C-W>h", {})
-vim.keymap.set("n", "<A-l>", "<C-W>l", {})
-vim.keymap.set("t", "<A-j>", "<C-\\><C-n><C-w>j", {})
-vim.keymap.set("t", "<A-k>", "<C-\\><C-n><C-w>k", {})
-vim.keymap.set("t", "<A-h>", "<C-\\><C-n><C-w>h", {})
-vim.keymap.set("t", "<A-l>", "<C-\\><C-n><C-w>l", {})
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", {})
-vim.keymap.set("n", "<A-w>", "<Esc><CMD>q!<CR>", {})
-vim.keymap.set("v", "<A-d>", '"_d', {})
-vim.keymap.set("n", "<A-d>", '"_dd', {})
-vim.keymap.set("n", "<A-1>", "1gt", {})
-vim.keymap.set("n", "<A-2>", "2gt", {})
-vim.keymap.set("n", "<A-3>", "3gt", {})
-vim.keymap.set("t", "<A-1>", "<C-\\><C-n>1gt", {})
-vim.keymap.set("t", "<A-2>", "<C-\\><C-n>2gt", {})
-vim.keymap.set("t", "<A-3>", "<C-\\><C-n>3gt", {})
-vim.keymap.set("n", "<A-t>", "<CMD>tab split<CR>", {})
-vim.keymap.set("n", "<leader>q", ":noh<CR>:lua toggle_signcolumn()<CR>", {})
-vim.keymap.set('n', '<A-[>', '<CMD>diffget LOCAL<CR>', {})
-vim.keymap.set('n', '<A-]>', '<CMD>diffget BASE<CR>', {})
-vim.keymap.set('n', '<A-\\>', '<CMD>diffget REMOTE<CR>', {})
-vim.opt.signcolumn = "yes"
-vim.opt.clipboard = "unnamedplus"
-vim.opt.foldmethod = "indent"
-vim.opt.foldlevelstart = 99
-vim.opt.undofile = true
-vim.opt.undodir = "~/.local/share/nvim/undodir"
+function toggle_signcolumn()                                                                                                                                                       
+    if vim.wo.signcolumn == "yes" then                                                                                                                                             
+        vim.wo.signcolumn = "no"                                                                                                                                                   
+    else                                                                                                                                                                           
+        vim.wo.signcolumn = "yes"                                                                                                                                                  
+    end                                                                                                                                                                            
+end                                                                                                                                                                                
+                                                                                                                                                                                   
+function toggle_diagnostics()                                                                                                                                                      
+  if diagnostics_active then                                                                                                                                                       
+    vim.diagnostic.show()                                                                                                                                                          
+  else                                                                                                                                                                             
+    vim.diagnostic.hide()                                                                                                                                                          
+  end                                                                                                                                                                              
+  diagnostics_active = not diagnostics_active                                                                                                                                      
+end                                                                                                                                                                                
+local diagnostics_active = true                                                                                                                                                    
+                                                                                                                                                                                   
+vim.cmd.colorscheme("tokyonight")                                                                                                                                                  
+vim.keymap.set("n", "<A-j>", "<C-W>j", {})                                                                                                                                         
+vim.keymap.set("n", "<A-k>", "<C-W>k", {})                                                                                                                                         
+vim.keymap.set("n", "<A-h>", "<C-W>h", {})                                                                                                                                         
+vim.keymap.set("n", "<A-l>", "<C-W>l", {})                                                                                                                                         
+vim.keymap.set("t", "<A-j>", "<C-\\><C-n><C-w>j", {})                                                                                                                              
+vim.keymap.set("t", "<A-k>", "<C-\\><C-n><C-w>k", {})                                                                                                                              
+vim.keymap.set("t", "<A-h>", "<C-\\><C-n><C-w>h", {})                                                                                                                              
+vim.keymap.set("t", "<A-l>", "<C-\\><C-n><C-w>l", {})                                                                                                                              
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", {})                                                                                                                                    
+vim.keymap.set("n", "<A-w>", "<Esc><CMD>q!<CR>", {})                                                                                                                               
+vim.keymap.set("v", "<A-d>", '"_d', {})                                                                                                                                            
+vim.keymap.set("n", "<A-d>", '"_dd', {})                                                                                                                                           
+vim.keymap.set("n", "<A-1>", "1gt", {})                                                                                                                                            
+vim.keymap.set("n", "<A-2>", "2gt", {})                                                                                                                                            
+vim.keymap.set("n", "<A-3>", "3gt", {})                                                                                                                                            
+vim.keymap.set("t", "<A-1>", "<C-\\><C-n>1gt", {})                                                                                                                                 
+vim.keymap.set("t", "<A-2>", "<C-\\><C-n>2gt", {})                                                                                                                                 
+vim.keymap.set("t", "<A-3>", "<C-\\><C-n>3gt", {})                                                                                                                                 
+vim.keymap.set("n", "<A-t>", "<CMD>tab split<CR>", {})                                                                                                                             
+vim.keymap.set("n", "<leader>q", ":noh<CR>:lua toggle_signcolumn()<CR> :lua toggle_diagnostics()<CR>", {})                                                                         
+vim.keymap.set('n', '<A-[>', '<CMD>diffget LOCAL<CR>', {})                                                                                                                         
+vim.keymap.set('n', '<A-]>', '<CMD>diffget BASE<CR>', {})                                                                                                                          
+vim.keymap.set('n', '<A-\\>', '<CMD>diffget REMOTE<CR>', {})                                                                                                                       
+vim.opt.signcolumn = "yes"                                                                                                                                                         
+vim.opt.clipboard = "unnamedplus"                                                                                                                                                  
+vim.opt.foldmethod = "indent"                                                                                                                                                      
+vim.opt.foldlevelstart = 99 

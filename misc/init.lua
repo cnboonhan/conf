@@ -327,9 +327,11 @@ function toggle_diagnostics()
 	if diagnostics_active then
 		vim.cmd("LspStart")
 		vim.diagnostic.show()
+  vim.opt.mouse = "a"
 	else
 		vim.cmd("LspStop")
 		vim.diagnostic.hide()
+  vim.opt.mouse = ""
 	end
 	diagnostics_active = not diagnostics_active
 end
@@ -364,4 +366,3 @@ vim.opt.foldmethod = "indent"
 vim.opt.foldlevelstart = 99
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"
-vim.opt.mouse = ""

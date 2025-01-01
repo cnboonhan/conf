@@ -5,6 +5,7 @@ RUN apt update && apt install curl git sudo cmake wget build-essential black fzf
 
 ENV NVM_DIR=/root/.nvm
 ENV NODE_VERSION=20.12.0
+ENV SHELL=bash
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash \
     && . $NVM_DIR/nvm.sh \
@@ -12,7 +13,8 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | b
     && nvm alias default $NODE_VERSION \
     && nvm use default
 
-ENV PATH=$NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+ENV PATH=$NVM_DIR/versions/node/v$NODE_VERSION/bin:/root/.local/share/pnpm:$PATH
+RUN curl -fsSL https://get.pnpm.io/install.sh | sh -
 
 RUN wget https://github.com/neovim/neovim/releases/download/v0.10.3/nvim-linux64.tar.gz
 RUN tar -xvf nvim-linux64.tar.gz

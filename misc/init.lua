@@ -199,7 +199,8 @@ require("lazy").setup(
 							lsp_format = "ufallback"
 						},
 						formatters_by_ft = {
-							python = { "black" }
+							python = { "black" },
+							typescript = { "prettier" }
 						}
 					}
 				)
@@ -327,11 +328,11 @@ function toggle_diagnostics()
 	if diagnostics_active then
 		vim.cmd("LspStart")
 		vim.diagnostic.show()
-  vim.opt.mouse = "a"
+		vim.opt.mouse = "a"
 	else
 		vim.cmd("LspStop")
 		vim.diagnostic.hide()
-  vim.opt.mouse = ""
+		vim.opt.mouse = ""
 	end
 	diagnostics_active = not diagnostics_active
 end
@@ -360,6 +361,9 @@ vim.keymap.set("n", "<leader>q", ":noh<CR>:lua toggle_signcolumn()<CR> :lua togg
 vim.keymap.set('n', '<A-[>', '<CMD>diffget LOCAL<CR>', {})
 vim.keymap.set('n', '<A-]>', '<CMD>diffget BASE<CR>', {})
 vim.keymap.set('n', '<A-\\>', '<CMD>diffget REMOTE<CR>', {})
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
 vim.opt.signcolumn = "yes"
 vim.opt.clipboard = "unnamedplus"
 vim.opt.foldmethod = "indent"

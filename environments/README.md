@@ -41,7 +41,7 @@ docker build --build-arg "BASE_IMAGE=$BASE_IMAGE" -t gazebo:latest -f gazebo.Doc
 ```bash
 # Vim
 docker container rm vim --force
-docker run --name vim -d --network=host --user $(id -u):$(id -g) \
+docker run --restart=always --name vim -d --network=host --user $(id -u):$(id -g) \
     --gpus all \
     -v "/etc/group:/etc/group:ro" -v "/etc/passwd:/etc/passwd:ro" -v /home/$USER:/home/$USER \
     --env="DISPLAY=$DISPLAY" \
@@ -49,7 +49,7 @@ docker run --name vim -d --network=host --user $(id -u):$(id -g) \
 
 # ROS2
 docker container rm ros2 --force
-docker run --name ros2 -d --network=host --user $(id -u):$(id -g) \
+docker run --restart=always --name ros2 -d --network=host --user $(id -u):$(id -g) \
     --gpus all \
     -v "/etc/group:/etc/group:ro" -v "/etc/passwd:/etc/passwd:ro" -v /home/$USER:/home/$USER \
     --env="DISPLAY=$DISPLAY" \
@@ -57,7 +57,7 @@ docker run --name ros2 -d --network=host --user $(id -u):$(id -g) \
 
 # Gazebo
 docker container rm gazebo --force
-docker run --name gazebo -d --network=host --user $(id -u):$(id -g) \
+docker run --restart=always --name gazebo -d --network=host --user $(id -u):$(id -g) \
     --gpus all \
     --cap-add=sys_ptrace --security-opt seccomp=unconfined \
     -v "/etc/group:/etc/group:ro" -v "/etc/passwd:/etc/passwd:ro" -v /home/$USER:/home/$USER \

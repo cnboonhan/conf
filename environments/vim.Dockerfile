@@ -6,6 +6,7 @@ RUN apt update && apt install curl git sudo cmake wget build-essential black fzf
 ENV NVM_DIR=/root/.nvm
 ENV NODE_VERSION=20.12.0
 ENV SHELL=bash
+ENV TERM=xterm-256color
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash \
     && . $NVM_DIR/nvm.sh \

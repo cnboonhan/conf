@@ -1,0 +1,10 @@
+#!/bin/bash
+
+FOLDER_TO_WATCH=${1:-$(pwd)}
+COMMAND_TO_RUN=${2:-echo "ENTER CMD HERE"}
+
+inotifywait -m -e close_write -q "$FOLDER_TO_WATCH" |
+while read -r directory events filename; do
+    echo "Event detected: $events on $directory$filename"
+    $COMMAND_TO_RUN
+done

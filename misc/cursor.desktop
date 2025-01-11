@@ -1,6 +1,0 @@
-[Desktop Entry]
-Name=Cursor AI IDE
-Exec=/opt/cursor.appimage --no-sandbox
-Icon=/opt/cursor.png
-Type=Application
-Categories=Development;

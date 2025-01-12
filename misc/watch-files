@@ -1,10 +1,12 @@
 #!/bin/bash
+# to reference filename, execute command like ./watch-files [path to folder] 'wezterm imgcat $filepath'
 
 FOLDER_TO_WATCH=${1:-$(pwd)}
 
 inotifywait -m -e close_write -q "$FOLDER_TO_WATCH" |
 while read -r directory events filename; do
-    echo "Event detected: $events on $directory$filename"
+    filepath="$directory$filename"
+    echo "Event detected: $events on $filepath"
 
-    ${2:-echo "File Change: $filename"}
+    eval ${2:-echo "File Change: $filepath"}
 done

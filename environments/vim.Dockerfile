@@ -33,4 +33,6 @@ RUN apt install wezterm -y
 # ENV XDG_DATA_HOME=/root/.local/share
 RUN chmod -R o+rwx /root
 
+RUN echo 'readonly PS1="\e[0;31m[docker]\e[m ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "' >> /etc/bash.bashrc
+
 CMD ["ttyd", "-p", "8195", "-i", "127.0.0.1", "--writable", "bash"]

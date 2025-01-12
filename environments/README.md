@@ -8,7 +8,7 @@ curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Ubuntu
 # Install WezTerm: https://wezfurlong.org/wezterm/installation.html
 
 # Add to .bashrc
-if [[ $IN_DOCKER ]]; then PS1="\e[0;31m[docker]\e[m $PS1"; fi
+if [[ $IN_DOCKER ]]; then PS1="\[\e[0;31m\][docker]\[\e[m\] $PS1"; fi
 ```
 
 ## Run

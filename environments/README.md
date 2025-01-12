@@ -4,9 +4,11 @@
 
 ```bash
 curl -fsSL https://test.docker.com -o test-docker.sh | sh -
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/UbuntuMono.zip
-curl -L https://downloader.cursor.sh/linux/appImage/x64 -o /opt/cursor.appimage
+# Install WezTerm: https://wezfurlong.org/wezterm/installation.html
+
+# Add to .bashrc
+if [[ $IN_DOCKER ]]; then PS1="\e[0;31m[docker]\e[m $PS1"; fi
 ```
 
 ## Run

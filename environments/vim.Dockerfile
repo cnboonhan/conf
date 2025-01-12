@@ -28,7 +28,7 @@ RUN rm nvim-linux64.tar.gz
 RUN curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /etc/apt/keyrings/wezterm-fury.gpg
 RUN echo 'deb [signed-by=/etc/apt/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
 RUN apt update 
-RUN apt install wezterm -y
+RUN apt install wezterm timg ffmpeg -y
 
 # ENV XDG_CONFIG_HOME=/root/.config
 # ENV XDG_DATA_HOME=/root/.local/share

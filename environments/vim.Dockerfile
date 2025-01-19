@@ -7,6 +7,8 @@ ENV NVM_DIR=/root/.nvm
 ENV NODE_VERSION=20.12.0
 ENV SHELL=bash
 ENV TERM=xterm-256color
+
+# Place this line in host .bashrc for labelling: if [[ $IN_DOCKER ]]; then PS1="\[\e[0;31m\][docker]\[\e[m\] $PS1"; fi
 ENV IN_DOCKER=true
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash \
@@ -29,6 +31,9 @@ RUN curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /et
 RUN echo 'deb [signed-by=/etc/apt/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
 RUN apt update 
 RUN apt install wezterm timg ffmpeg -y
+
+RUN curl -sSL https://get.docker.com/ | sh
+RUN chmod u+s /usr/bin/docker
 
 # ENV XDG_CONFIG_HOME=/root/.config
 # ENV XDG_DATA_HOME=/root/.local/share

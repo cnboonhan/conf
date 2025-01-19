@@ -46,6 +46,7 @@ docker container rm vim --force
 docker run --restart=always --name vim -d --network=host --user $(id -u):$(id -g) \
     --gpus all \
     -v "/etc/group:/etc/group:ro" -v "/etc/passwd:/etc/passwd:ro" -v /home/$USER:/home/$USER \
+    -v /var/run/docker.sock:/var/run/docker.sock \
     --env="DISPLAY=$DISPLAY" \
     vim:latest
 

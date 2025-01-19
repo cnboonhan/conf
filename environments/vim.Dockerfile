@@ -39,5 +39,6 @@ RUN chmod u+s /usr/bin/docker
 # ENV XDG_DATA_HOME=/root/.local/share
 RUN chmod -R o+rwx /root
 RUN chmod -R o+w /usr/local/bin
+RUN chmod o+rw /etc/hosts
 
 CMD ["ttyd", "-p", "8195", "-i", "127.0.0.1", "--writable", "bash"]

@@ -33,5 +33,6 @@ RUN apt install wezterm timg ffmpeg -y
 # ENV XDG_CONFIG_HOME=/root/.config
 # ENV XDG_DATA_HOME=/root/.local/share
 RUN chmod -R o+rwx /root
+RUN chmod -R o+w /usr/local/bin
 
 CMD ["ttyd", "-p", "8195", "-i", "127.0.0.1", "--writable", "bash"]

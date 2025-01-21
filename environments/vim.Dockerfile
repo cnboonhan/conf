@@ -7,6 +7,7 @@ ENV NVM_DIR=/root/.nvm
 ENV NODE_VERSION=20.12.0
 ENV SHELL=bash
 ENV TERM=xterm-256color
+ENV EDITOR=nvim
 
 # Place this line in host .bashrc for labelling: if [[ $IN_DOCKER ]]; then PS1="\[\e[0;31m\][docker]\[\e[m\] $PS1"; fi
 ENV IN_DOCKER=true

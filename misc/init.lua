@@ -130,13 +130,26 @@ require("lazy").setup(
       event = "VeryLazy",
       lazy = false,
       version = false,
-      opts = {
-        provider = "copilot",
-        auto_suggestions_provider = "copilot",
-        behaviour = {
-          auto_suggestions = false
+      opts = function()
+        local provider = "copilot"
+        local auto_suggestions_provider = "copilot"
+
+        if vim.fn.getenv("ANTHROPIC_API_KEY") ~= vim.NIL then
+          provider = "claude"
+          auto_suggestions_provider = "claude"
+        else
+          provider = "copilot"
+          auto_suggestions_provider = "copilot"
+        end
+
+        return {
+          provider = provider,
+          auto_suggestions_provider = auto_suggestions_provider,
+          behaviour = {
+            auto_suggestions = false
+          }
         }
-      },
+      end,
       build = "make",
       dependencies = {
         "stevearc/dressing.nvim",

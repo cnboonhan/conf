@@ -41,6 +41,9 @@ docker build --build-arg "BASE_IMAGE=$BASE_IMAGE" -t gazebo:latest -f gazebo.Doc
 
 ## Run
 ```bash
+# For podman commands, modify with the following flags
+# podman run [..] -userns=keep-id --privileged [image]
+
 # Vim
 docker container rm vim --force
 docker run --restart=always --name vim -d --network=host --user $(id -u):$(id -g) \

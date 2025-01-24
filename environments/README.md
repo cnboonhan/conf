@@ -8,6 +8,7 @@ mkdir -p ~/.fonts && curl -L https://github.com/ryanoasis/nerd-fonts/releases/la
 unzip -d ~/.fonts/UbuntuMono /tmp/fonts.zip && fc-cache -f -v
 [[ $(command -v nvidia-smi) ]] && sudo nvidia-ctk runtime configure --runtime=docker && sudo systemctl restart docker
 echo 'if [[ $IN_DOCKER ]]; then PS1="\[\e[0;31m\][docker]\[\e[m\] $PS1"; fi' >> ~/.bashrc
+# If using podman, alias docker="podman"
 ```
 
 ## Build
@@ -21,12 +22,10 @@ sed -i '/^alias Z=/d' ~/.bashrc && echo "alias Z='docker exec -u root -it $TARGE
 
 ## Run
 ```bash
-# For podman commands, modify with the following flags
-# podman run [..] -userns=keep-id --privileged [image]
-
 export TARGET="vim" 
 docker container rm "$TARGET" --force
 docker run --restart=always --name "$TARGET" -d --network=host --user $(id -u):$(id -g) \
+    $(if command -v podman &> /dev/null; then echo "--userns=keep-id --privileged"; fi) \
     $(if command -v nvidia-smi &> /dev/null; then echo "--gpus all"; fi) \
     -v "/etc/group:/etc/group:ro" -v "/etc/passwd:/etc/passwd:ro" -v /home/$USER:/home/$USER \
     -v /var/run/docker.sock:/var/run/docker.sock \

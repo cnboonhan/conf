@@ -24,11 +24,12 @@ sed -i '/^alias Z=/d' ~/.bashrc && echo "alias Z='docker exec -u root -it $TARGE
 ```bash
 export TARGET="vim" 
 docker container rm "$TARGET" --force
-docker run --restart=always --name "$TARGET" -d --network=host --user $(id -u):$(id -g) \
-    $(if command -v podman &> /dev/null; then echo "--userns=keep-id --privileged"; fi) \
-    $(if command -v nvidia-smi &> /dev/null; then echo "--gpus all"; fi) \
+docker run \
+    --restart=always --name "$TARGET" -d --network=host --user $(id -u):$(id -g) \
     -v "/etc/group:/etc/group:ro" -v "/etc/passwd:/etc/passwd:ro" -v /home/$USER:/home/$USER \
-    -v /var/run/docker.sock:/var/run/docker.sock \
     --env="DISPLAY=$DISPLAY" \
+    $(if command -v podman &> /dev/null; then echo "--userns=keep-id --privileged"; fi) \
+    $(if ! command -v podman &> /dev/null; then echo "-v /var/run/docker.sock:/var/run/docker.sock"; fi) \
+    $(if command -v nvidia-smi &> /dev/null; then echo "--gpus all"; fi) \
     "$TARGET:latest"
 ```

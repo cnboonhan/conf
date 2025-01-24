@@ -2,6 +2,7 @@
 
 ## Initialization
 ```bash
+# install WezTerm: https://wezfurlong.org/wezterm/installation.html
 curl -fsSL https://test.docker.com | sh -
 mkdir -p ~/.fonts && curl -L https://github.com/ryanoasis/nerd-fonts/releases/latest/download/UbuntuMono.zip -o /tmp/fonts.zip
 unzip -d ~/.fonts/UbuntuMono /tmp/fonts.zip && fc-cache -f -v

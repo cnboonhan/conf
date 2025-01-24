@@ -15,6 +15,7 @@ export BASE_IMAGE=${BASE_IMAGE:-ubuntu:24.04}
 export TARGET="vim" 
 docker build --build-arg "BASE_IMAGE=$BASE_IMAGE" -t "$TARGET":latest -f "$TARGET.Dockerfile" .
 sed -i '/^alias z=/d' ~/.bashrc && echo "alias z='docker exec -it $TARGET bash -c \"cd \"\$PWD\" && bash -l\"'" >> ~/.bashrc
+sed -i '/^alias Z=/d' ~/.bashrc && echo "alias Z='docker exec -u root -it $TARGET bash -c \"cd \"\$PWD\" && bash -l\"'" >> ~/.bashrc
 ```
 
 ## Run

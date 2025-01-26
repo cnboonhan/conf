@@ -10,7 +10,7 @@ unzip -d ~/.fonts/UbuntuMono /tmp/fonts.zip && fc-cache -f -v
 [[ $(command -v nvidia-smi) ]] && sudo nvidia-ctk runtime configure --runtime=docker && sudo systemctl restart docker
 echo 'if [[ $IN_DOCKER ]]; then PS1="\[\e[0;31m\][docker]\[\e[m\] $PS1"; fi' >> ~/.bashrc
 # If using podman, alias docker="podman"
-# rclone mount gdrive:/ ~/gdrive
+# rclone mount gdrive:/ ~/gdrive --daemon
 ```
 
 ## Build

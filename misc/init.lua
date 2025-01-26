@@ -198,6 +198,12 @@ require("lazy").setup(
             vim.keymap.set({ "n", "t" }, "<leader>!", "<CMD>TermExec cmd='!!'<CR>", {}),
             vim.keymap.set("v", "<leader>e", function()
               require("toggleterm").send_lines_to_terminal("visual_selection", false, { args = vim.v.count })
+            end, {}),
+            vim.keymap.set("v", "<leader>E", function()
+              vim.cmd(":norm gcc")
+              vim.cmd(":norm gv")
+              require("toggleterm").send_lines_to_terminal("visual_selection", false, { args = vim.v.count })
+              vim.cmd(":norm gcc")
             end, {})
           }
         )

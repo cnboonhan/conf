@@ -199,10 +199,16 @@ require("lazy").setup(
             vim.keymap.set("v", "<leader>e", function()
               require("toggleterm").send_lines_to_terminal("visual_selection", false, { args = vim.v.count })
             end, {}),
+            vim.keymap.set("n", "<leader>E", function()
+              vim.cmd(":norm gcc")
+              require("toggleterm").send_lines_to_terminal("single_line", false, { args = vim.v.count })
+              vim.cmd(":norm gcc")
+            end, {}),
             vim.keymap.set("v", "<leader>E", function()
               vim.cmd(":norm gcc")
               vim.cmd(":norm gv")
               require("toggleterm").send_lines_to_terminal("visual_selection", false, { args = vim.v.count })
+              vim.cmd(":norm gv")
               vim.cmd(":norm gcc")
             end, {})
           }
@@ -390,7 +396,7 @@ vim.keymap.set('n', "<leader>[", "<CMD>diffget LOCAL<CR>", {})
 vim.keymap.set('n', "<leader>]", "<CMD>diffget BASE<CR>", {})
 vim.keymap.set('n', "<leader>\\", "<CMD>diffget REMOTE<CR>", {})
 vim.keymap.set("n", "<leader>/", ":norm gcc<CR>")
-vim.keymap.set("v", "<leader>/", ":norm gcc<CR>")
+vim.keymap.set("v", "<leader>/", ":norm gcc<CR>:norm gv<CR>")
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true

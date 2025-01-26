@@ -21,7 +21,7 @@ RUN apt update && apt install -y \
     python3-venv \
     python3-pip \
     graphviz \
-    inotify-tools
+    inotify-tools 
 
 ENV NVM_DIR=/root/.nvm
 ENV SHELL=bash

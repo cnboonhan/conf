@@ -196,8 +196,12 @@ require("lazy").setup(
             shell = "/bin/bash",
             vim.keymap.set({ "n", "t" }, "<leader>`", "<CMD>ToggleTerm<CR>", {}),
             vim.keymap.set({ "n", "t" }, "<leader>!", "<CMD>TermExec cmd='!!'<CR>", {}),
+            vim.keymap.set("n", "<leader>e", function()
+              require("toggleterm").send_lines_to_terminal("single_line", false, { args = vim.v.count })
+            end, {}),
             vim.keymap.set("v", "<leader>e", function()
               require("toggleterm").send_lines_to_terminal("visual_selection", false, { args = vim.v.count })
+              vim.cmd(":norm gv")
             end, {}),
             vim.keymap.set("n", "<leader>E", function()
               vim.cmd(":norm gcc")

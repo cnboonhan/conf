@@ -401,7 +401,6 @@ vim.keymap.set('n', "<leader>]", "<CMD>diffget BASE<CR>", {})
 vim.keymap.set('n', "<leader>\\", "<CMD>diffget REMOTE<CR>", {})
 vim.keymap.set("n", "<leader>/", ":norm gcc<CR>")
 vim.keymap.set("v", "<leader>/", ":norm gcc<CR>:norm gv<CR>")
-vim.keymap.set("v", "<leader>q", "<CMD>'<,'>g/^$/d<CR>:noh<CR>")
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true

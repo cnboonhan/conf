@@ -254,7 +254,7 @@ require("lazy").setup(
         require("mason-lspconfig").setup(
           {
             ensure_installed = {
-              "pyright",
+              "pylsp",
               "lua_ls"
 
             }
@@ -276,7 +276,7 @@ require("lazy").setup(
         end
 
         -- Configure each language server
-        lspconfig.pyright.setup(
+        lspconfig.pylsp.setup(
           {
             on_attach = on_attach,
             capabilities = require("cmp_nvim_lsp").default_capabilities()

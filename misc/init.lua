@@ -279,7 +279,16 @@ require("lazy").setup(
         lspconfig.pylsp.setup(
           {
             on_attach = on_attach,
-            capabilities = require("cmp_nvim_lsp").default_capabilities()
+            capabilities = require("cmp_nvim_lsp").default_capabilities(),
+            settings = {
+              pylsp = {
+                plugins = {
+                  pycodestyle = {
+                    ignore = { "E501" }
+                  }
+                }
+              }
+            }
           }
         )
         lspconfig.lua_ls.setup({})

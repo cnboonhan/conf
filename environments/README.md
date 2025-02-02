@@ -3,6 +3,7 @@
 ## Initialization
 ```bash
 # install WezTerm: https://wezfurlong.org/wezterm/installation.html
+# install miniConda: https://docs.anaconda.com/miniconda/install/#quick-command-line-install
 sudo apt install rclone curl wget git -y
 curl -fsSL https://test.docker.com | sh -
 mkdir -p ~/.fonts && curl -L https://github.com/ryanoasis/nerd-fonts/releases/latest/download/UbuntuMono.zip -o /tmp/fonts.zip
@@ -20,6 +21,7 @@ export TARGET="vim"
 docker build --build-arg "BASE_IMAGE=$BASE_IMAGE" -t "$TARGET":latest -f "$TARGET.Dockerfile" .
 sed -i '/^alias z=/d' ~/.bashrc && echo "alias z='docker exec -it $TARGET bash -c \"cd \"\$PWD\" && bash -l\"'" >> ~/.bashrc
 sed -i '/^alias Z=/d' ~/.bashrc && echo "alias Z='docker exec -u root -it $TARGET bash -c \"cd \"\$PWD\" && bash -l\"'" >> ~/.bashrc
+sed -i '/^alias c=/d' ~/.bashrc && echo "alias c='source $HOME/miniconda3/bin/activate'" >> ~/.bashrc
 ```
 
 ## Run

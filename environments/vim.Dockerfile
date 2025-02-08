@@ -39,12 +39,12 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$(curl -s https://api.
     && ln -s $NVM_DIR/versions/node/$(nvm current)/bin/node /usr/local/bin/node \
     && ln -s $NVM_DIR/versions/node/$(nvm current)/bin/npm /usr/local/bin/npm
 
-RUN wget https://github.com/neovim/neovim/releases/download/$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest | jq -rc '.tag_name')/nvim-linux64.tar.gz
-RUN tar -xvf nvim-linux64.tar.gz
-RUN cp -r nvim-linux64/bin/* /usr/bin/
-RUN cp -r nvim-linux64/lib/* /usr/lib/
-RUN cp -r nvim-linux64/share/* /usr/share/
-RUN rm nvim-linux64.tar.gz
+RUN wget https://github.com/neovim/neovim/releases/download/$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest | jq -rc '.tag_name')/nvim-linux-x86_64.tar.gz
+RUN tar -xvf nvim-linux-x86_64.tar.gz
+RUN cp -r nvim-linux-x86_64/bin/* /usr/bin/
+RUN cp -r nvim-linux-x86_64/lib/* /usr/lib/
+RUN cp -r nvim-linux-x86_64/share/* /usr/share/
+RUN rm nvim-linux-x86_64.tar.gz
 
 RUN curl -sSL https://get.docker.com/ | sh
 RUN chmod u+s /usr/bin/docker

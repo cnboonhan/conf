@@ -37,6 +37,5 @@ docker run \
     --cap-add SYS_ADMIN \
     $(if command -v podman &> /dev/null; then echo "--userns=keep-id --privileged"; fi) \
     $(if ! command -v podman &> /dev/null; then echo "-v /var/run/docker.sock:/var/run/docker.sock"; fi) \
-    $(if command -v nvidia-smi &> /dev/null; then echo "--gpus all --env NVIDIA_DRIVER_CAPABILITIES=all"; fi) \
-    $(if command -v nvidia-smi &> /dev/null && ! ( command -v podman &> /dev/null ); then echo "--runtime=nvidia"; fi) "$TARGET:latest"
+    $(if command -v nvidia-smi &> /dev/null; then echo "--gpus all --env NVIDIA_DRIVER_CAPABILITIES=all"; fi) "$TARGET:latest"
 ```

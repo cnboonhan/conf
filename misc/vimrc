@@ -1,6 +1,6 @@
 set expandtab
 set mouse=a
-set signcolumn=yes
+set signcolumn=no
 set updatetime=250
 set timeoutlen=250
 set completeopt=menuone,noselect

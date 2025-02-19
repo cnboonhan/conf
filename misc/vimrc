@@ -40,9 +40,11 @@ execute "set <M-l>=\el"
 nnoremap <M-l> <C-w>l                                     
 tnoremap <M-l> <C-w>l                                     
 execute "set <M-e>=\ee"                                   
-vnoremap <M-e> :%y \| :call term_sendkeys(g:termid, @")<CR> :execute bufwinnr(g:termid)<CR>            
+vnoremap <M-e> :%y \| :call term_sendkeys(g:termid, @")<CR> :execute bufwinnr(g:termid)<CR>   
+" vnoremap <M-e> :%y \| :call term_sendkeys(g:termid, @")<CR> :execute bufwinnr(g:termid) 'wincmd w'<CR> :normal i<CR> 
 execute "set <M-r>=\er"
-nnoremap <M-r> :call term_sendkeys(g:termid, "!!")<CR> :execute bufwinnr(g:termid) 'wincmd w'<CR> 
+nnoremap <M-r> :call term_sendkeys(g:termid, "!!")<CR> :execute bufwinnr(g:termid)<CR> 
+" nnoremap <M-r> :call term_sendkeys(g:termid, "!!")<CR> :execute bufwinnr(g:termid) 'wincmd w'<CR> :normal i<CR> 
 execute "set <M-1>=\e1"
 nnoremap <M-1> 1gt
 tnoremap <M-1> <C-\\><C-n>1gt                             

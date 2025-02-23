@@ -32,10 +32,12 @@ docker container rm "$TARGET" --force
 docker run \
     --restart=always --name "$TARGET" -d --network=host --user $(id -u):$(id -g) \
     -v "/etc/group:/etc/group:ro" -v "/etc/passwd:/etc/passwd:ro" -v "/home/$USER:/home/$USER" -v "/opt:/opt" -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v "/dev/bus/usb:/dev/bus/usb" \
     --env="DISPLAY=$DISPLAY" \
     --device /dev/fuse \
     --cap-add SYS_ADMIN \
-    $(if command -v podman &> /dev/null; then echo "--userns=keep-id --privileged"; fi) \
+    --privileged \
+    $(if command -v podman &> /dev/null; then echo "--userns=keep-id"; fi) \
     $(if ! command -v podman &> /dev/null; then echo "-v /var/run/docker.sock:/var/run/docker.sock"; fi) \
     $(if command -v nvidia-smi &> /dev/null; then echo "--gpus all --env NVIDIA_DRIVER_CAPABILITIES=all"; fi) "$TARGET:latest"
 ```

@@ -33,6 +33,7 @@ docker run \
     --restart=always --name "$TARGET" -d --network=host --user $(id -u):$(id -g) \
     -v "/etc/group:/etc/group:ro" -v "/etc/passwd:/etc/passwd:ro" -v "/home/$USER:/home/$USER" -v "/opt:/opt" -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v "/dev/bus/usb:/dev/bus/usb" \
+    -v "/mnt:/mnt" \
     --env="DISPLAY=$DISPLAY" \
     --device /dev/fuse \
     --cap-add SYS_ADMIN \

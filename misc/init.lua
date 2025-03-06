@@ -147,6 +147,9 @@ require("lazy").setup(
           auto_suggestions_provider = auto_suggestions_provider,
           behaviour = {
             auto_suggestions = false
+          },
+          claude  = {
+            model = "claude-3-5-sonnet-20241022"
           }
         }
       end,

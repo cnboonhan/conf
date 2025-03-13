@@ -18,7 +18,7 @@ echo 'if [[ $IN_DOCKER ]]; then PS1="\[\e[0;31m\][docker]\[\e[m\] $PS1"; fi' >> 
 ```bash
 export BASE_IMAGE=${BASE_IMAGE:-ubuntu:24.04}
 export TARGET="vim" 
-docker build --build-arg "BASE_IMAGE=$BASE_IMAGE" -t "$TARGET":latest -f "$TARGET.Dockerfile" .
+docker build --no-cache --build-arg "BASE_IMAGE=$BASE_IMAGE" -t "$TARGET":latest -f "$TARGET.Dockerfile" .
 sed -i '/^alias z=/d' ~/.bashrc && echo "alias z='docker exec -it $TARGET bash -c \"cd \"\$PWD\" && bash -l\"'" >> ~/.bashrc
 sed -i '/^alias Z=/d' ~/.bashrc && echo "alias Z='docker exec -u root -it $TARGET bash -c \"cd \"\$PWD\" && bash -l\"'" >> ~/.bashrc
 sed -i '/^alias c=/d' ~/.bashrc && echo "alias c='source $HOME/miniconda3/bin/activate'" >> ~/.bashrc

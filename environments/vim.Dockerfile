@@ -39,6 +39,8 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/$(curl -s https://api.
     && ln -s $NVM_DIR/versions/node/$(nvm current)/bin/node /usr/local/bin/node \
     && ln -s $NVM_DIR/versions/node/$(nvm current)/bin/npm /usr/local/bin/npm
 
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+
 RUN wget https://github.com/neovim/neovim/releases/download/$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest | jq -rc '.tag_name')/nvim-linux-x86_64.tar.gz
 RUN tar -xvf nvim-linux-x86_64.tar.gz
 RUN cp -r nvim-linux-x86_64/bin/* /usr/bin/

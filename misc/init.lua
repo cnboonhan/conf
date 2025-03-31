@@ -143,12 +143,12 @@ require("lazy").setup(
         end
 
         return {
-          provider = provider,
+          provider                  = provider,
           auto_suggestions_provider = auto_suggestions_provider,
-          behaviour = {
+          behaviour                 = {
             auto_suggestions = false
           },
-          claude  = {
+          claude                    = {
             model = "claude-3-5-sonnet-20241022"
           }
         }
@@ -422,3 +422,4 @@ vim.opt.foldmethod = "indent"
 vim.opt.foldlevelstart = 99
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"
+vim.opt.timeoutlen = 200

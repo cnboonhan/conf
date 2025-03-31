@@ -21,7 +21,8 @@ export TARGET="vim"
 docker build --no-cache --build-arg "BASE_IMAGE=$BASE_IMAGE" -t "$TARGET":latest -f "$TARGET.Dockerfile" .
 sed -i '/^alias z=/d' ~/.bashrc && echo "alias z='docker exec -it $TARGET bash -c \"cd \"\$PWD\" && bash -l\"'" >> ~/.bashrc
 sed -i '/^alias Z=/d' ~/.bashrc && echo "alias Z='docker exec -u root -it $TARGET bash -c \"cd \"\$PWD\" && bash -l\"'" >> ~/.bashrc
-sed -i '/^alias c=/d' ~/.bashrc && echo "alias c='source $HOME/miniconda3/bin/activate'" >> ~/.bashrc
+sed -i '/^alias c=/d' ~/.bashrc && echo "alias c='source \$HOME/miniconda3/bin/activate; conda activate \$(basename \$PWD) 2>/dev/null'" >> ~/.bashrc
+alias c=''
 sed -i '/^alias r=/d' ~/.bashrc && echo "alias r='rclone mount gdrive:/ $HOME/gdrive --daemon'" >> ~/.bashrc
 ```
 

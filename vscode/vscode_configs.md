@@ -7,6 +7,7 @@ github.copilot
 ms-vscode-remote.vscode-remote-extensionpack
 ms-python.python
 ms-vscode-remote.remote-containers
+ms-azuretools.vscode-docker
 """ | xargs -I{} code --install-extension {}
 ```
 

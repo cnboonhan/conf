@@ -6,6 +6,7 @@ echo """
 github.copilot
 ms-vscode-remote.vscode-remote-extensionpack
 ms-python.python
+ms-vscode-remote.remote-containers
 """ | xargs -I{} code --install-extension {}
 ```
 

@@ -1,10 +1,16 @@
-###
+# VSCode Configurations
+
+## Extensions
+```
 echo """
 github.copilot
 ms-vscode-remote.vscode-remote-extensionpack
+ms-python.python
 """ | xargs -I{} code --install-extension {}
-###
+```
 
+## keybindings.json
+```
 [
     {
         "key": "ctrl-k",
@@ -78,3 +84,4 @@ ms-vscode-remote.vscode-remote-extensionpack
         "command": "workbench.action.toggleMaximizeEditorGroup"
     }
 ]
+```

@@ -1,3 +1,10 @@
+###
+echo """
+github.copilot
+ms-vscode-remote.vscode-remote-extensionpack
+""" | xargs -I{} code --install-extension {}
+###
+
 [
     {
         "key": "ctrl-k",

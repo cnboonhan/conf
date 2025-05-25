@@ -62,12 +62,11 @@ ms-python.vscode-python-envs
     },
     {
         "key": "alt+r",
-        "command": "workbench.action.terminal.runRecentCommand",
+        "command": "workbench.action.terminal.runRecentCommand"
     },
     {
         "key": "alt+e",
-        "command": "workbench.action.terminal.runSelectedText",
-        "when": "editorTextFocus && editorHasSelection"
+        "command": "workbench.action.terminal.runSelectedText"
     },
     {
         "key": "alt+q",

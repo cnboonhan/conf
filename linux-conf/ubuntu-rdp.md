@@ -1,4 +1,7 @@
 # ubuntu-rdp
+
+Configurations to get ubuntu desktop sharing over RDP to work.
+
 ```
 # login using wayland desktop environment
 gsettings set org.gnome.desktop.remote-desktop.rdp screen-share-mode extend

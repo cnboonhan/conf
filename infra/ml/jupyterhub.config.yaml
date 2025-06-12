@@ -1,0 +1,36 @@
+# This file can update the JupyterHub Helm chart's default configuration values.
+#
+# For reference see the configuration reference and default values, but make
+# sure to refer to the Helm chart version of interest to you!
+#
+# Introduction to YAML:     https://www.youtube.com/watch?v=cdLNKUoMc6c
+# Chart config reference:   https://zero-to-jupyterhub.readthedocs.io/en/stable/resources/reference.html
+# Chart default values:     https://github.com/jupyterhub/zero-to-jupyterhub-k8s/blob/HEAD/jupyterhub/values.yaml
+# Available chart versions: https://hub.jupyter.org/helm-chart/
+#
+hub:
+  revisionHistoryLimit:
+  config:
+    KubeSpawner:
+      extra_pod_config:
+        runtimeClassName: nvidia
+
+singleuser:
+  profileList:
+    - display_name: "GPU Enabled Notebook"
+      description: "A notebook environment with GPU access."
+      kubespawner_override:
+        # Important: Tell Kubernetes to use the NVIDIA runtime
+        runtimeClassName: nvidia
+        image: quay.io/jupyter/pytorch-notebook:cuda12-latest
+        extra_resource_limits:
+          nvidia.com/gpu: "1" # Request 1 GPU
+        environment : {
+          'NVIDIA_DRIVER_CAPABILITIES': 'compute,utility',
+          'NVIDIA_VISIBLE_DEVICES': 'all',
+          'GRANT_SUDO': 'yes'
+          }
+      # You might also want to use a custom image built with CUDA
+      # image: your-custom-cuda-jupyter-image:latest
+    - display_name: "Default Environment (No GPU)"
+      description: "Minimal notebook environment."

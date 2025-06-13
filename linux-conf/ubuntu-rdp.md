@@ -15,4 +15,5 @@ Alternatively, can enable and configure Remote Login
 sudo grdctl --system rdp enable
 sudo grdctl --system rdp set-port 3389
 sudo grdctl --system rdp set-credentials USERNAME PASSWORD
+sudo systemctl restart gnome-remote-desktop.service
 ```

@@ -8,6 +8,11 @@ sudoedit /etc/systemd/system/k3s.service
 # Add to bashrc: alias k="k3s kubectl"
 # Add to bashrc: export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx --create-namespace
+kubectl get service --namespace ingress-nginx ingress-nginx-controller --output wide --watch
+# Add to /etc/hosts the Cluster-IP from above
+
 helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
 helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
 ```

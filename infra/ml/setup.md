@@ -40,6 +40,14 @@ helm install \
 --create-namespace \
 --values minio.values.yaml \
 minio minio-operator/tenant
+
+kubectl apply -f minio-dev.yaml
+
+curl https://dl.min.io/client/mc/release/linux-amd64/mc -o mc
+chmod +x mc
+sudo mv mc /usr/local/bin
+
+kubectl port-forward pod/minio 9000 9090 -n minio-dev
 ```
 
 ## Install Nvidia and JupyterHub
